@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Trazabilidad</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:sans-serif;background:#0f1117;color:#e8eaf0;max-width:480px;margin:0 auto;padding-bottom:100px;}
+.header{padding:16px 20px 12px;border-bottom:1px solid #2e3347;background:#0f1117;position:sticky;top:0;z-index:10;}
+.header-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;}
+.logo{font-size:13px;font-weight:600;color:#4f8ef7;letter-spacing:0.08em;text-transform:uppercase;}
+.date-pill{font-size:11px;background:#22263a;color:#7880a0;padding:4px 10px;border-radius:20px;}
+.steps-bar{display:flex;gap:4px;}
+.step-dot{flex:1;height:3px;border-radius:2px;background:#2e3347;}
+.step-dot.done{background:#34d9a0;}
+.step-dot.active{background:#4f8ef7;}
+.section{padding:18px 20px;}
+.stitle{font-size:11px;font-weight:600;color:#7880a0;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:14px;}
+.fmts{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;}
+.fb{background:#1a1d27;border:1px solid #2e3347;border-radius:10px;padding:12px 4px;text-align:center;cursor:pointer;color:#7880a0;}
+.fb .oz{font-size:15px;font-weight:600;display:block;color:#e8eaf0;}
+.fb .lb{font-size:9px;margin-top:2px;display:block;}
+.fb.sel{background:#1a2a4a;border-color:#4f8ef7;}
+.fb.sel .oz{color:#4f8ef7;}
+.shifts{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;}
+.sb{background:#1a1d27;border:1px solid #2e3347;border-radius:10px;padding:14px 8px;text-align:center;cursor:pointer;color:#7880a0;font-size:13px;font-weight:500;}
+.sb .ic{display:block;font-size:20px;margin-bottom:4px;}
+.sb.sel{background:#1a2a4a;border-color:#4f8ef7;color:#4f8ef7;}
+.field{margin-bottom:14px;}
+.field label{display:block;font-size:11px;font-weight:600;color:#7880a0;text-transform:uppercase;margin-bottom:6px;}
+.mwrap{position:relative;}
+.mwrap input{width:100%;background:#1a1d27;border:1px solid #2e3347;border-radius:10px;padding:13px 42px 13px 14px;font-size:15px;color:#e8eaf0;outline:none;}
+.mwrap input:focus{border-color:#4f8ef7;}
+.mwrap input::placeholder{color:#7880a0;}
+.mwrap input.filled{border-color:#2a4a2a;}
+.mwrap .mic{position:absolute;right:10px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:#7880a0;padding:4px;}
+.mwrap .mic.on{color:#f7504f;}
+.mwrap .mic svg{width:18px;height:18px;}
+.lwrap{position:relative;}
+.lwrap input{width:100%;background:#1a1d27;border:1px solid #2e3347;border-radius:10px;padding:13px 42px 13px 42px;font-size:15px;color:#e8eaf0;outline:none;}
+.lwrap input:focus{border-color:#4f8ef7;}
+.lwrap input::placeholder{color:#7880a0;}
+.lwrap input.filled{border-color:#2a4a2a;}
+.lpfx{position:absolute;left:14px;top:50%;transform:translateY(-50%);font-size:12px;color:#4f8ef7;font-weight:500;pointer-events:none;}
+.lwrap .mic{position:absolute;right:10px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:#7880a0;padding:4px;}
+.lwrap .mic.on{color:#f7504f;}
+.lwrap .mic svg{width:18px;height:18px;}
+.row3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:14px;}
+.row3 .field{margin-bottom:0;}
+.row3 .field input{width:100%;background:#1a1d27;border:1px solid #2e3347;border-radius:10px;padding:13px 10px;font-size:14px;color:#e8eaf0;outline:none;}
+.fecha-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;}
+.fecha-row input{width:100%;background:#1a1d27;border:1px solid #2e3347;border-radius:10px;padding:13px 10px;font-size:18px;color:#e8eaf0;outline:none;text-align:center;font-weight:600;}
+.fecha-row input:focus{border-color:#4f8ef7;}
+.fecha-row input::placeholder{color:#3a4060;font-size:13px;font-weight:400;}
+.fecha-note{font-size:11px;color:#7880a0;margin-top:8px;line-height:1.5;}
+.oplist{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px;}
+.oppill{background:#1a2a4a;border:1px solid #4f8ef7;border-radius:20px;padding:5px 10px;font-size:12px;color:#4f8ef7;display:flex;align-items:center;gap:6px;}
+.oppill button{background:none;border:none;color:#4f8ef7;cursor:pointer;font-size:14px;padding:0;}
+.oprow{display:flex;gap:8px;}
+.oprow .mwrap{flex:1;}
+.oprow .mwrap input{padding:16px 42px 16px 14px;font-size:16px;}
+.addbtn{background:#4f8ef7;border:none;border-radius:10px;padding:0 16px;color:#fff;font-size:14px;font-weight:600;cursor:pointer;}
+.divider{height:1px;background:#2e3347;margin:0 20px;}
+.scard{background:#1a1d27;border:1px solid #2e3347;border-radius:14px;margin:0 20px 16px;overflow:hidden;}
+.scard-h{padding:12px 16px;background:#22263a;display:flex;align-items:center;justify-content:space-between;}
+.scard-h .tag{font-size:11px;font-weight:600;color:#34d9a0;background:#0d2a1f;border-radius:20px;padding:2px 10px;}
+.srow{display:flex;justify-content:space-between;padding:9px 16px;border-top:1px solid #2e3347;}
+.srow .k{font-size:11px;color:#7880a0;}
+.srow .v{font-size:13px;color:#e8eaf0;text-align:right;max-width:60%;word-break:break-all;}
+.note{font-size:12px;color:#7880a0;padding:10px 12px;margin-top:8px;line-height:1.5;border-left:2px solid #4f8ef7;}
+.bbar{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;padding:12px 20px 24px;background:#0f1117;border-top:1px solid #2e3347;display:flex;gap:10px;}
+.bbk{background:#1a1d27;border:1px solid #2e3347;border-radius:12px;padding:14px 20px;font-size:14px;font-weight:500;color:#7880a0;cursor:pointer;}
+.bbn{flex:1;background:#4f8ef7;border:none;border-radius:12px;padding:14px;font-size:15px;font-weight:600;color:#fff;cursor:pointer;}
+.bbn:disabled{opacity:0.35;cursor:default;}
+.bbc{flex:1;background:#34d9a0;border:none;border-radius:12px;padding:14px;font-size:15px;font-weight:600;color:#0a1f16;cursor:pointer;}
+.page{display:none;}
+.page.active{display:block;}
+.toast{position:fixed;top:20px;left:50%;transform:translateX(-50%);font-size:13px;font-weight:600;padding:10px 20px;border-radius:20px;opacity:0;pointer-events:none;transition:opacity 0.3s;z-index:100;white-space:nowrap;}
+.tok{background:#34d9a0;color:#0a1f16;}
+.terr{background:#f7504f;color:#fff;}
+.tshow{opacity:1;}
+.sucscreen{text-align:center;padding:50px 20px;}
+.sucicon{width:72px;height:72px;border-radius:50%;background:#0d2a1f;border:2px solid #34d9a0;margin:0 auto 20px;display:flex;align-items:center;justify-content:center;font-size:32px;}
+.suctit{font-size:22px;font-weight:600;margin-bottom:8px;}
+.sucsub{font-size:14px;color:#7880a0;margin-bottom:28px;line-height:1.6;}
+.btnnuevo{display:block;width:100%;background:#1a1d27;border:1px solid #2e3347;border-radius:12px;padding:14px;font-size:15px;font-weight:500;color:#e8eaf0;cursor:pointer;}
+.sendscreen{text-align:center;padding:60px 20px;}
+.spinner{width:48px;height:48px;border:3px solid #2e3347;border-top-color:#4f8ef7;border-radius:50%;margin:0 auto 20px;animation:spin 0.8s linear infinite;}
+@keyframes spin{to{transform:rotate(360deg);}}
+.sendtxt{font-size:16px;color:#7880a0;}
+</style>
+</head>
+<body>
+<div class="toast" id="toast"></div>
+<div class="header">
+  <div class="header-top"><span class="logo">Trazabilidad</span><span class="date-pill" id="dsp"></span></div>
+  <div class="steps-bar"><div class="step-dot active" id="d0"></div><div class="step-dot" id="d1"></div><div class="step-dot" id="d2"></div><div class="step-dot" id="d3"></div></div>
+</div>
+<div class="page active" id="page0">
+  <div class="section">
+    <div class="stitle">Formato de vaso</div>
+    <div class="fmts">
+      <button class="fb" onclick="selFmt('4OZ',this)"><span class="oz">4</span><span class="lb">OZ</span></button>
+      <button class="fb" onclick="selFmt('6OZ',this)"><span class="oz">6</span><span class="lb">OZ</span></button>
+      <button class="fb" onclick="selFmt('6.5OZ',this)"><span class="oz">6.5</span><span class="lb">OZ</span></button>
+      <button class="fb" onclick="selFmt('8OZ',this)"><span class="oz">8</span><span class="lb">OZ</span></button>
+      <button class="fb" onclick="selFmt('12OZ',this)"><span class="oz">12</span><span class="lb">OZ</span></button>
+    </div>
+  </div>
+  <div class="divider"></div>
+  <div class="section">
+    <div class="stitle">Turno</div>
+    <div class="shifts">
+      <button class="sb" onclick="selShift('Manana',this)"><span class="ic">☀️</span>Mañana</button>
+      <button class="sb" onclick="selShift('Tarde',this)"><span class="ic">🌤</span>Tarde</button>
+      <button class="sb" onclick="selShift('Noche',this)"><span class="ic">🌙</span>Noche</button>
+    </div>
+  </div>
+  <div class="divider"></div>
+  <div class="section">
+    <div class="stitle">Fecha del registro</div>
+    <div class="fecha-row">
+      <input type="number" id="f-dia" placeholder="DD" inputmode="numeric" min="1" max="31" oninput="updFecha()">
+      <input type="number" id="f-mes" placeholder="MM" inputmode="numeric" min="1" max="12" oninput="updFecha()">
+      <input type="number" id="f-anio" placeholder="AAAA" inputmode="numeric" oninput="updFecha()">
+    </div>
+    <div class="fecha-note">Fecha de hoy por defecto. Cambia solo si registras un turno de otro dia.</div>
+  </div>
+</div>
+<div class="page" id="page1">
+  <div class="section">
+    <div class="stitle">Lotes de materia prima</div>
+    <div class="field"><label>Referencia</label><div class="mwrap"><input type="text" id="ref" placeholder="REF-4OZ-001" oninput="chk(this)"><button class="mic" onclick="dic('ref',this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 10a7 7 0 0 0 14 0"/><line x1="12" y1="19" x2="12" y2="22"/><line x1="8" y1="22" x2="16" y2="22"/></svg></button></div></div>
+    <div class="field"><label>Lote fabricacion</label><div class="mwrap"><input type="text" id="lot" placeholder="LF-2026-044" oninput="chk(this)"><button class="mic" onclick="dic('lot',this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 10a7 7 0 0 0 14 0"/><line x1="12" y1="19" x2="12" y2="22"/><line x1="8" y1="22" x2="16" y2="22"/></svg></button></div></div>
+    <div class="field"><label>Lote pared</label><div class="lwrap"><span class="lpfx">P·</span><input type="text" id="lpared" placeholder="L-24-089" oninput="chk(this)"><button class="mic" onclick="dic('lpared',this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 10a7 7 0 0 0 14 0"/><line x1="12" y1="19" x2="12" y2="22"/><line x1="8" y1="22" x2="16" y2="22"/></svg></button></div></div>
+    <div class="field"><label>Lote papel base</label><div class="lwrap"><span class="lpfx">PB·</span><input type="text" id="lpapel" placeholder="PB-44" oninput="chk(this)"><button class="mic" onclick="dic('lpapel',this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 10a7 7 0 0 0 14 0"/><line x1="12" y1="19" x2="12" y2="22"/><line x1="8" y1="22" x2="16" y2="22"/></svg></button></div></div>
+    <div class="field"><label>Lote bolsa PEHD</label><div class="lwrap"><span class="lpfx">B·</span><input type="text" id="lbolsa" placeholder="B-201" oninput="chk(this)"><button class="mic" onclick="dic('lbolsa',this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 10a7 7 0 0 0 14 0"/><line x1="12" y1="19" x2="12" y2="22"/><line x1="8" y1="22" x2="16" y2="22"/></svg></button></div></div>
+  </div>
+</div>
+<div class="page" id="page2">
+  <div class="section">
+    <div class="stitle">Cajas</div>
+    <div class="row3">
+      <div class="field"><label>Inicio</label><input type="number" id="ci" placeholder="301" inputmode="numeric" oninput="chk(this)"></div>
+      <div class="field"><label>Fin</label><input type="number" id="cf" placeholder="348" inputmode="numeric" oninput="chk(this)"></div>
+      <div class="field"><label>Pico</label><input type="number" id="cp" placeholder="325" inputmode="numeric" oninput="chk(this)"></div>
+    </div>
+  </div>
+  <div class="divider"></div>
+  <div class="section">
+    <div class="stitle">Operarios</div>
+    <div class="oplist" id="oplist"></div>
+    <div class="oprow">
+      <div class="mwrap"><input type="text" id="opinput" placeholder="Nombre del operario" onkeydown="if(event.key==='Enter')addOp()"><button class="mic" onclick="dic('opinput',this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 10a7 7 0 0 0 14 0"/><line x1="12" y1="19" x2="12" y2="22"/><line x1="8" y1="22" x2="16" y2="22"/></svg></button></div>
+      <button class="addbtn" onclick="addOp()">+ Añadir</button>
+    </div>
+  </div>
+</div>
+<div class="page" id="page3">
+  <div class="section"><div class="stitle">Revisa y confirma</div></div>
+  <div class="scard">
+    <div class="scard-h"><span id="sfmt" style="font-size:15px;font-weight:600"></span><span class="tag" id="stur"></span></div>
+    <div class="srow"><span class="k">Fecha</span><span class="v" id="sfec"></span></div>
+    <div class="srow"><span class="k">Referencia</span><span class="v" id="sref"></span></div>
+    <div class="srow"><span class="k">Lote fab.</span><span class="v" id="slot"></span></div>
+    <div class="srow"><span class="k">Lote pared</span><span class="v" id="spar"></span></div>
+    <div class="srow"><span class="k">Lote papel</span><span class="v" id="spap"></span></div>
+    <div class="srow"><span class="k">Lote bolsa</span><span class="v" id="sbol"></span></div>
+    <div class="srow"><span class="k">Cajas</span><span class="v" id="scaj"></span></div>
+    <div class="srow"><span class="k">Caja pico</span><span class="v" id="spic"></span></div>
+    <div class="srow"><span class="k">Operarios</span><span class="v" id="sops"></span></div>
+  </div>
+  <div class="section"><div class="note">Al confirmar los datos se escribiran en tu Google Sheets.</div></div>
+</div>
+<div class="page" id="page-sending"><div class="sendscreen"><div class="spinner"></div><div class="sendtxt">Guardando en Google Sheets...</div></div></div>
+<div class="page" id="page-success"><div class="sucscreen"><div class="sucicon">✓</div><div class="suctit">Datos guardados!</div><div class="sucsub" id="sucmsg"></div><button class="btnnuevo" onclick="reset()">Registrar otro turno</button></div></div>
+<div class="bbar" id="bbar">
+  <button class="bbk" id="bbk" onclick="prev()" style="display:none">Atras</button>
+  <button class="bbn" id="bbn" onclick="next()" disabled>Siguiente</button>
+</div>
+<script>
+var SURL='https://script.google.com/macros/s/AKfycbxYuBYErrpe_Zh4to0Avy4eihD5IiO7y4Wmd3myXVv7BQsFVOtTrPE2Y2AxxmwHUY2N/exec';
+var st={fmt:null,tur:null,ref:'',lot:'',lpared:'',lpapel:'',lbolsa:'',ci:'',cf:'',cp:'',ops:[]};
+var pg=0;
+var rec=null,abtn=null;
+
+function gday(){var d=new Date();var ds=['Dom','Lun','Mar','Mie','Jue','Vie','Sab'];var ms=['ene','feb','mar','abr','may','jun','jul','ago','sep','oct','nov','dic'];return ds[d.getDay()]+' '+d.getDate()+' '+ms[d.getMonth()];}
+
+function initFecha(){
+  var d=new Date();
+  document.getElementById('f-dia').value=d.getDate();
+  document.getElementById('f-mes').value=d.getMonth()+1;
+  document.getElementById('f-anio').value=d.getFullYear();
+  document.getElementById('dsp').textContent=gday();
+}
+
+function getFecha(){
+  var dia=String(document.getElementById('f-dia').value).padStart(2,'0');
+  var mes=String(document.getElementById('f-mes').value).padStart(2,'0');
+  var anio=document.getElementById('f-anio').value;
+  return dia+'/'+mes+'/'+anio;
+}
+
+function updFecha(){
+  var dia=document.getElementById('f-dia').value;
+  var mes=document.getElementById('f-mes').value;
+  var anio=document.getElementById('f-anio').value;
+  if(dia&&mes&&anio){
+    document.getElementById('dsp').textContent=String(dia).padStart(2,'0')+'/'+String(mes).padStart(2,'0')+'/'+anio;
+  }
+}
+
+initFecha();
+
+function selFmt(f,el){st.fmt=f;document.querySelectorAll('.fb').forEach(function(b){b.classList.remove('sel');});el.classList.add('sel');chkp0();}
+function selShift(s,el){st.tur=s;document.querySelectorAll('.sb').forEach(function(b){b.classList.remove('sel');});el.classList.add('sel');chkp0();}
+function chkp0(){document.getElementById('bbn').disabled=!(st.fmt&&st.tur);}
+function chk(inp){if(inp.value.trim())inp.classList.add('filled');else inp.classList.remove('filled');}
+function addOp(){var inp=document.getElementById('opinput');var n=inp.value.trim();if(!n)return;for(var i=0;i<st.ops.length;i++){if(st.ops[i]===n){toast('Ya anadido','err');return;}}st.ops.push(n);renderOps();inp.value='';}
+function remOp(n){st.ops=st.ops.filter(function(o){return o!==n;});renderOps();}
+function renderOps(){var l=document.getElementById('oplist');var h='';for(var i=0;i<st.ops.length;i++)h+='<div class="oppill">'+st.ops[i]+'<button onclick="remOp(\''+st.ops[i]+'\')">x</button></div>';l.innerHTML=h;}
+function updDots(){for(var i=0;i<4;i++){var d=document.getElementById('d'+i);if(!d)continue;d.className='step-dot';if(i<pg)d.classList.add('done');else if(i===pg)d.classList.add('active');}}
+function showPg(n){
+  document.querySelectorAll('.page').forEach(function(p){p.classList.remove('active');});
+  var p=document.getElementById('page'+n)||document.getElementById('page-'+n);
+  if(p)p.classList.add('active');
+  var bar=document.getElementById('bbar');
+  if(n===3){bar.innerHTML='<button class="bbk" onclick="prev()">Atras</button><button class="bbc" onclick="confirm2()">Confirmar y guardar</button>';}
+  else if(n==='sending'||n==='success'){bar.style.display='none';}
+  else{bar.style.display='flex';bar.innerHTML='<button class="bbk" id="bbk" onclick="prev()" style="display:'+(n>0?'block':'none')+'">Atras</button><button class="bbn" id="bbn" onclick="next()" '+(n===0?'disabled':'')+'>Siguiente</button>';if(n===0)chkp0();}
+  updDots();window.scrollTo(0,0);
+}
+function valP1(){var fs=['ref','lot','lpared','lpapel','lbolsa'];for(var i=0;i<fs.length;i++){if(!document.getElementById(fs[i]).value.trim())return false;}return true;}
+function valP2(){var fs=['ci','cf','cp'];for(var i=0;i<fs.length;i++){if(!document.getElementById(fs[i]).value.trim())return false;}return st.ops.length>0;}
+function next(){
+  if(pg===0&&!(st.fmt&&st.tur)){toast('Selecciona formato y turno','err');return;}
+  if(pg===1&&!valP1()){toast('Rellena todos los lotes','err');return;}
+  if(pg===2&&!valP2()){toast(st.ops.length===0?'Anade al menos un operario':'Completa las cajas','err');return;}
+  if(pg===1){st.ref=document.getElementById('ref').value.trim();st.lot=document.getElementById('lot').value.trim();st.lpared=document.getElementById('lpared').value.trim();st.lpapel=document.getElementById('lpapel').value.trim();st.lbolsa=document.getElementById('lbolsa').value.trim();}
+  if(pg===2){st.ci=document.getElementById('ci').value.trim();st.cf=document.getElementById('cf').value.trim();st.cp=document.getElementById('cp').value.trim();fillSum();}
+  pg++;showPg(pg);
+}
+function prev(){if(pg>0){pg--;showPg(pg);}}
+function fillSum(){
+  document.getElementById('sfmt').textContent=st.fmt;
+  document.getElementById('stur').textContent=st.tur==='Manana'?'Manana':st.tur;
+  document.getElementById('sfec').textContent=getFecha();
+  document.getElementById('sref').textContent=st.ref||'-';
+  document.getElementById('slot').textContent=st.lot||'-';
+  document.getElementById('spar').textContent=st.lpared;
+  document.getElementById('spap').textContent=st.lpapel;
+  document.getElementById('sbol').textContent=st.lbolsa;
+  document.getElementById('scaj').textContent=st.ci+' - '+st.cf;
+  document.getElementById('spic').textContent=st.cp;
+  document.getElementById('sops').textContent=st.ops.join(', ');
+}
+function confirm2(){
+  showPg('sending');
+  var turno=st.tur==='Manana'?'Manana':st.tur;
+  var payload={fecha:getFecha(),formato:st.fmt,turno:turno,referencia:st.ref,lote:st.lot,lote_pared:st.lpared,lote_papel:st.lpapel,lote_bolsa:st.lbolsa,caja_inicio:st.ci,caja_fin:st.cf,caja_pico:st.cp,operarios:st.ops.join(' / ')};
+  var xhr=new XMLHttpRequest();
+  xhr.open('POST',SURL,true);
+  xhr.onload=function(){try{var data=JSON.parse(xhr.responseText);if(data.ok){document.getElementById('sucmsg').textContent=st.fmt+' · Turno '+turno+' · '+getFecha()+'\nDatos guardados en Google Sheets';showPg('success');}else{showPg(3);toast('Error: '+(data.error||'intentalo de nuevo'),'err');}}catch(e){showPg(3);toast('Error al procesar respuesta','err');}};
+  xhr.onerror=function(){showPg(3);toast('Error de conexion','err');};
+  xhr.send(JSON.stringify(payload));
+}
+function reset(){
+  st={fmt:null,tur:null,ref:'',lot:'',lpared:'',lpapel:'',lbolsa:'',ci:'',cf:'',cp:'',ops:[]};
+  document.querySelectorAll('input[type=text],input[type=number]').forEach(function(i){i.value='';i.classList.remove('filled');});
+  document.querySelectorAll('.fb,.sb').forEach(function(b){b.classList.remove('sel');});
+  initFecha();
+  renderOps();pg=0;
+  document.getElementById('bbar').style.display='flex';
+  showPg(0);
+}
+function toast(msg,type){var t=document.getElementById('toast');t.textContent=msg;t.className='toast '+(type==='err'?'terr':'tok')+' tshow';setTimeout(function(){t.className='toast '+(type==='err'?'terr':'tok');},2500);}
+function dic(fid,btn){
+  var SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+  if(!SR){toast('Dictado no disponible','err');return;}
+  if(rec){rec.stop();return;}
+  rec=new SR();rec.lang='es-ES';rec.interimResults=false;
+  if(abtn)abtn.classList.remove('on');
+  abtn=btn;btn.classList.add('on');
+  rec.onresult=function(e){var t=e.results[0][0].transcript.trim();var nsp=['ref','lot','lpared','lpapel','lbolsa'];var isNsp=false;for(var i=0;i<nsp.length;i++){if(nsp[i]===fid){isNsp=true;break;}}if(isNsp){t=t.replace(/\s+/g,'').toUpperCase();}var inp=document.getElementById(fid);inp.value=t;chk(inp);};
+  rec.onerror=function(){toast('No se entendio','err');};
+  rec.onend=function(){if(abtn)abtn.classList.remove('on');abtn=null;rec=null;};
+  rec.start();
+}
+</script>
+</body>
+</html>
