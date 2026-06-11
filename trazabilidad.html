@@ -15,6 +15,12 @@ body{font-family:sans-serif;background:#0f1117;color:#e8eaf0;max-width:480px;mar
 .step-dot{flex:1;height:3px;border-radius:2px;background:#2e3347;}
 .step-dot.done{background:#34d9a0;}
 .step-dot.active{background:#4f8ef7;}
+
+/* NAV TABS */
+.nav-tabs{display:flex;border-bottom:1px solid #2e3347;background:#0f1117;}
+.nav-tab{flex:1;padding:12px 8px;text-align:center;font-size:13px;font-weight:500;color:#7880a0;cursor:pointer;border-bottom:2px solid transparent;transition:all 0.2s;}
+.nav-tab.active{color:#4f8ef7;border-bottom-color:#4f8ef7;}
+
 .section{padding:18px 20px;}
 .stitle{font-size:11px;font-weight:600;color:#7880a0;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:14px;}
 .fmts{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;}
@@ -89,14 +95,49 @@ body{font-family:sans-serif;background:#0f1117;color:#e8eaf0;max-width:480px;mar
 .spinner{width:48px;height:48px;border:3px solid #2e3347;border-top-color:#4f8ef7;border-radius:50%;margin:0 auto 20px;animation:spin 0.8s linear infinite;}
 @keyframes spin{to{transform:rotate(360deg);}}
 .sendtxt{font-size:16px;color:#7880a0;}
+
+/* REGISTROS */
+.reg-header{padding:16px 20px 12px;}
+.reg-filters{display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap;}
+.reg-filter{background:#1a1d27;border:1px solid #2e3347;border-radius:20px;padding:6px 12px;font-size:12px;color:#7880a0;cursor:pointer;}
+.reg-filter.active{background:#1a2a4a;border-color:#4f8ef7;color:#4f8ef7;}
+.reg-refresh{background:#1a1d27;border:1px solid #2e3347;border-radius:10px;padding:10px 16px;font-size:13px;color:#4f8ef7;cursor:pointer;display:flex;align-items:center;gap:6px;margin-bottom:14px;width:100%;}
+.reg-count{font-size:11px;color:#7880a0;margin-bottom:10px;}
+.reg-card{background:#1a1d27;border:1px solid #2e3347;border-radius:12px;margin-bottom:10px;overflow:hidden;}
+.reg-card-h{padding:10px 14px;background:#22263a;display:flex;align-items:center;justify-content:space-between;}
+.reg-card-h .rc-fmt{font-size:14px;font-weight:600;color:#e8eaf0;}
+.reg-card-h .rc-date{font-size:11px;color:#7880a0;}
+.rc-tag{font-size:10px;font-weight:600;border-radius:20px;padding:2px 8px;}
+.rc-tag.Manana{background:#2a1f0a;color:#f7c550;}
+.rc-tag.Tarde{background:#1f1a2a;color:#a07ff7;}
+.rc-tag.Noche{background:#0d1a2a;color:#4f8ef7;}
+.reg-row{display:flex;justify-content:space-between;padding:7px 14px;border-top:1px solid #2e3347;}
+.reg-row .rk{font-size:11px;color:#7880a0;}
+.reg-row .rv{font-size:12px;color:#e8eaf0;text-align:right;max-width:65%;word-break:break-all;}
+.reg-empty{text-align:center;padding:50px 20px;color:#7880a0;font-size:14px;}
+.reg-loading{text-align:center;padding:40px 20px;}
+.reg-spinner{width:36px;height:36px;border:3px solid #2e3347;border-top-color:#4f8ef7;border-radius:50%;margin:0 auto 12px;animation:spin 0.8s linear infinite;}
+.reg-loading-txt{font-size:13px;color:#7880a0;}
 </style>
 </head>
 <body>
 <div class="toast" id="toast"></div>
+
+<!-- HEADER -->
 <div class="header">
   <div class="header-top"><span class="logo">Trazabilidad</span><span class="date-pill" id="dsp"></span></div>
-  <div class="steps-bar"><div class="step-dot active" id="d0"></div><div class="step-dot" id="d1"></div><div class="step-dot" id="d2"></div><div class="step-dot" id="d3"></div></div>
+  <div class="steps-bar" id="steps-bar"><div class="step-dot active" id="d0"></div><div class="step-dot" id="d1"></div><div class="step-dot" id="d2"></div><div class="step-dot" id="d3"></div></div>
 </div>
+
+<!-- NAV TABS -->
+<div class="nav-tabs">
+  <div class="nav-tab active" id="tab-registro" onclick="switchTab('registro')">📋 Registro</div>
+  <div class="nav-tab" id="tab-registros" onclick="switchTab('registros')">📊 Registros</div>
+</div>
+
+<!-- ========== TAB REGISTRO ========== -->
+<div id="tabcontent-registro">
+
 <div class="page active" id="page0">
   <div class="section">
     <div class="stitle">Formato de vaso</div>
@@ -128,6 +169,7 @@ body{font-family:sans-serif;background:#0f1117;color:#e8eaf0;max-width:480px;mar
     <div class="fecha-note">Fecha de hoy por defecto. Cambia solo si registras un turno de otro dia.</div>
   </div>
 </div>
+
 <div class="page" id="page1">
   <div class="section">
     <div class="stitle">Lotes de materia prima</div>
@@ -138,6 +180,7 @@ body{font-family:sans-serif;background:#0f1117;color:#e8eaf0;max-width:480px;mar
     <div class="field"><label>Lote bolsa PEHD</label><div class="lwrap"><span class="lpfx">B·</span><input type="text" id="lbolsa" placeholder="B-201" oninput="chk(this)"><button class="mic" onclick="dic('lbolsa',this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 10a7 7 0 0 0 14 0"/><line x1="12" y1="19" x2="12" y2="22"/><line x1="8" y1="22" x2="16" y2="22"/></svg></button></div></div>
   </div>
 </div>
+
 <div class="page" id="page2">
   <div class="section">
     <div class="stitle">Cajas</div>
@@ -157,6 +200,7 @@ body{font-family:sans-serif;background:#0f1117;color:#e8eaf0;max-width:480px;mar
     </div>
   </div>
 </div>
+
 <div class="page" id="page3">
   <div class="section"><div class="stitle">Revisa y confirma</div></div>
   <div class="scard">
@@ -173,56 +217,80 @@ body{font-family:sans-serif;background:#0f1117;color:#e8eaf0;max-width:480px;mar
   </div>
   <div class="section"><div class="note">Al confirmar los datos se escribiran en tu Google Sheets.</div></div>
 </div>
+
 <div class="page" id="page-sending"><div class="sendscreen"><div class="spinner"></div><div class="sendtxt">Guardando en Google Sheets...</div></div></div>
 <div class="page" id="page-success"><div class="sucscreen"><div class="sucicon">✓</div><div class="suctit">Datos guardados!</div><div class="sucsub" id="sucmsg"></div><button class="btnnuevo" onclick="reset()">Registrar otro turno</button></div></div>
+
 <div class="bbar" id="bbar">
   <button class="bbk" id="bbk" onclick="prev()" style="display:none">Atras</button>
   <button class="bbn" id="bbn" onclick="next()" disabled>Siguiente</button>
 </div>
+
+</div><!-- end tabcontent-registro -->
+
+<!-- ========== TAB REGISTROS ========== -->
+<div id="tabcontent-registros" style="display:none;padding-bottom:40px;">
+  <div class="reg-header">
+    <button class="reg-refresh" onclick="loadRegistros()">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
+      Actualizar registros
+    </button>
+    <div class="reg-filters" id="reg-filters">
+      <div class="reg-filter active" onclick="setFiltro('todos',this)">Todos</div>
+      <div class="reg-filter" onclick="setFiltro('4OZ',this)">4OZ</div>
+      <div class="reg-filter" onclick="setFiltro('6OZ',this)">6OZ</div>
+      <div class="reg-filter" onclick="setFiltro('6.5OZ',this)">6.5OZ</div>
+      <div class="reg-filter" onclick="setFiltro('8OZ',this)">8OZ</div>
+      <div class="reg-filter" onclick="setFiltro('12OZ',this)">12OZ</div>
+    </div>
+    <div class="reg-count" id="reg-count"></div>
+  </div>
+  <div id="reg-list"></div>
+</div>
+
 <script>
 var SURL='https://script.google.com/macros/s/AKfycbxYuBYErrpe_Zh4to0Avy4eihD5IiO7y4Wmd3myXVv7BQsFVOtTrPE2Y2AxxmwHUY2N/exec';
 var st={fmt:null,tur:null,ref:'',lot:'',lpared:'',lpapel:'',lbolsa:'',ci:'',cf:'',cp:'',ops:[]};
 var pg=0;
 var rec=null,abtn=null;
+var currentTab='registro';
+var allRegistros=[];
+var filtroActivo='todos';
 
+// ---- FECHA ----
 function gday(){var d=new Date();var ds=['Dom','Lun','Mar','Mie','Jue','Vie','Sab'];var ms=['ene','feb','mar','abr','may','jun','jul','ago','sep','oct','nov','dic'];return ds[d.getDay()]+' '+d.getDate()+' '+ms[d.getMonth()];}
-
-function initFecha(){
-  var d=new Date();
-  document.getElementById('f-dia').value=d.getDate();
-  document.getElementById('f-mes').value=d.getMonth()+1;
-  document.getElementById('f-anio').value=d.getFullYear();
-  document.getElementById('dsp').textContent=gday();
-}
-
-function getFecha(){
-  var dia=String(document.getElementById('f-dia').value).padStart(2,'0');
-  var mes=String(document.getElementById('f-mes').value).padStart(2,'0');
-  var anio=document.getElementById('f-anio').value;
-  return dia+'/'+mes+'/'+anio;
-}
-
-function updFecha(){
-  var dia=document.getElementById('f-dia').value;
-  var mes=document.getElementById('f-mes').value;
-  var anio=document.getElementById('f-anio').value;
-  if(dia&&mes&&anio){
-    document.getElementById('dsp').textContent=String(dia).padStart(2,'0')+'/'+String(mes).padStart(2,'0')+'/'+anio;
-  }
-}
-
+function initFecha(){var d=new Date();document.getElementById('f-dia').value=d.getDate();document.getElementById('f-mes').value=d.getMonth()+1;document.getElementById('f-anio').value=d.getFullYear();document.getElementById('dsp').textContent=gday();}
+function getFecha(){var dia=String(document.getElementById('f-dia').value).padStart(2,'0');var mes=String(document.getElementById('f-mes').value).padStart(2,'0');var anio=document.getElementById('f-anio').value;return dia+'/'+mes+'/'+anio;}
+function updFecha(){var dia=document.getElementById('f-dia').value;var mes=document.getElementById('f-mes').value;var anio=document.getElementById('f-anio').value;if(dia&&mes&&anio){document.getElementById('dsp').textContent=String(dia).padStart(2,'0')+'/'+String(mes).padStart(2,'0')+'/'+anio;}}
 initFecha();
 
+// ---- TABS ----
+function switchTab(tab){
+  currentTab=tab;
+  document.getElementById('tabcontent-registro').style.display=tab==='registro'?'block':'none';
+  document.getElementById('tabcontent-registros').style.display=tab==='registros'?'block':'none';
+  document.getElementById('tab-registro').className='nav-tab'+(tab==='registro'?' active':'');
+  document.getElementById('tab-registros').className='nav-tab'+(tab==='registros'?' active':'');
+  document.getElementById('steps-bar').style.display=tab==='registro'?'flex':'none';
+  document.getElementById('bbar').style.display=tab==='registro'?'flex':'none';
+  if(tab==='registros'&&allRegistros.length===0)loadRegistros();
+}
+
+// ---- FORMATO / TURNO ----
 function selFmt(f,el){st.fmt=f;document.querySelectorAll('.fb').forEach(function(b){b.classList.remove('sel');});el.classList.add('sel');chkp0();}
 function selShift(s,el){st.tur=s;document.querySelectorAll('.sb').forEach(function(b){b.classList.remove('sel');});el.classList.add('sel');chkp0();}
 function chkp0(){document.getElementById('bbn').disabled=!(st.fmt&&st.tur);}
 function chk(inp){if(inp.value.trim())inp.classList.add('filled');else inp.classList.remove('filled');}
+
+// ---- OPERARIOS ----
 function addOp(){var inp=document.getElementById('opinput');var n=inp.value.trim();if(!n)return;for(var i=0;i<st.ops.length;i++){if(st.ops[i]===n){toast('Ya anadido','err');return;}}st.ops.push(n);renderOps();inp.value='';}
 function remOp(n){st.ops=st.ops.filter(function(o){return o!==n;});renderOps();}
 function renderOps(){var l=document.getElementById('oplist');var h='';for(var i=0;i<st.ops.length;i++)h+='<div class="oppill">'+st.ops[i]+'<button onclick="remOp(\''+st.ops[i]+'\')">x</button></div>';l.innerHTML=h;}
+
+// ---- NAVEGACION ----
 function updDots(){for(var i=0;i<4;i++){var d=document.getElementById('d'+i);if(!d)continue;d.className='step-dot';if(i<pg)d.classList.add('done');else if(i===pg)d.classList.add('active');}}
 function showPg(n){
-  document.querySelectorAll('.page').forEach(function(p){p.classList.remove('active');});
+  document.querySelectorAll('#tabcontent-registro .page').forEach(function(p){p.classList.remove('active');});
   var p=document.getElementById('page'+n)||document.getElementById('page-'+n);
   if(p)p.classList.add('active');
   var bar=document.getElementById('bbar');
@@ -244,7 +312,7 @@ function next(){
 function prev(){if(pg>0){pg--;showPg(pg);}}
 function fillSum(){
   document.getElementById('sfmt').textContent=st.fmt;
-  document.getElementById('stur').textContent=st.tur==='Manana'?'Manana':st.tur;
+  document.getElementById('stur').textContent=st.tur==='Manana'?'Mañana':st.tur;
   document.getElementById('sfec').textContent=getFecha();
   document.getElementById('sref').textContent=st.ref||'-';
   document.getElementById('slot').textContent=st.lot||'-';
@@ -255,26 +323,33 @@ function fillSum(){
   document.getElementById('spic').textContent=st.cp;
   document.getElementById('sops').textContent=st.ops.join(', ');
 }
+
+// ---- CONFIRMAR ----
 function confirm2(){
   showPg('sending');
   var turno=st.tur==='Manana'?'Manana':st.tur;
   var payload={fecha:getFecha(),formato:st.fmt,turno:turno,referencia:st.ref,lote:st.lot,lote_pared:st.lpared,lote_papel:st.lpapel,lote_bolsa:st.lbolsa,caja_inicio:st.ci,caja_fin:st.cf,caja_pico:st.cp,operarios:st.ops.join(' / ')};
   var xhr=new XMLHttpRequest();
   xhr.open('POST',SURL,true);
-  xhr.onload=function(){try{var data=JSON.parse(xhr.responseText);if(data.ok){document.getElementById('sucmsg').textContent=st.fmt+' · Turno '+turno+' · '+getFecha()+'\nDatos guardados en Google Sheets';showPg('success');}else{showPg(3);toast('Error: '+(data.error||'intentalo de nuevo'),'err');}}catch(e){showPg(3);toast('Error al procesar respuesta','err');}};
+  xhr.onload=function(){try{var data=JSON.parse(xhr.responseText);if(data.ok){allRegistros=[];document.getElementById('sucmsg').textContent=st.fmt+' · Turno '+turno+' · '+getFecha()+'\nDatos guardados en Google Sheets';showPg('success');}else{showPg(3);toast('Error: '+(data.error||'intentalo de nuevo'),'err');}}catch(e){showPg(3);toast('Error al procesar respuesta','err');}};
   xhr.onerror=function(){showPg(3);toast('Error de conexion','err');};
   xhr.send(JSON.stringify(payload));
 }
+
+// ---- RESET ----
 function reset(){
   st={fmt:null,tur:null,ref:'',lot:'',lpared:'',lpapel:'',lbolsa:'',ci:'',cf:'',cp:'',ops:[]};
   document.querySelectorAll('input[type=text],input[type=number]').forEach(function(i){i.value='';i.classList.remove('filled');});
   document.querySelectorAll('.fb,.sb').forEach(function(b){b.classList.remove('sel');});
-  initFecha();
-  renderOps();pg=0;
+  initFecha();renderOps();pg=0;
   document.getElementById('bbar').style.display='flex';
   showPg(0);
 }
+
+// ---- TOAST ----
 function toast(msg,type){var t=document.getElementById('toast');t.textContent=msg;t.className='toast '+(type==='err'?'terr':'tok')+' tshow';setTimeout(function(){t.className='toast '+(type==='err'?'terr':'tok');},2500);}
+
+// ---- DICTADO ----
 function dic(fid,btn){
   var SR=window.SpeechRecognition||window.webkitSpeechRecognition;
   if(!SR){toast('Dictado no disponible','err');return;}
@@ -286,6 +361,65 @@ function dic(fid,btn){
   rec.onerror=function(){toast('No se entendio','err');};
   rec.onend=function(){if(abtn)abtn.classList.remove('on');abtn=null;rec=null;};
   rec.start();
+}
+
+// ---- REGISTROS ----
+function loadRegistros(){
+  var list=document.getElementById('reg-list');
+  list.innerHTML='<div class="reg-loading"><div class="reg-spinner"></div><div class="reg-loading-txt">Cargando registros...</div></div>';
+  document.getElementById('reg-count').textContent='';
+  var xhr=new XMLHttpRequest();
+  xhr.open('GET',SURL+'?action=getAll',true);
+  xhr.onload=function(){
+    try{
+      var data=JSON.parse(xhr.responseText);
+      if(data.ok&&data.registros){
+        allRegistros=data.registros;
+        renderRegistros();
+      } else {
+        list.innerHTML='<div class="reg-empty">No se pudieron cargar los registros.<br><small>'+( data.error||'')+'</small></div>';
+      }
+    }catch(e){
+      list.innerHTML='<div class="reg-empty">Error al leer los datos.</div>';
+    }
+  };
+  xhr.onerror=function(){list.innerHTML='<div class="reg-empty">Sin conexión.</div>';};
+  xhr.send();
+}
+
+function setFiltro(f,el){
+  filtroActivo=f;
+  document.querySelectorAll('.reg-filter').forEach(function(b){b.classList.remove('active');});
+  el.classList.add('active');
+  renderRegistros();
+}
+
+function renderRegistros(){
+  var filtered=allRegistros.filter(function(r){
+    return filtroActivo==='todos'||r.formato===filtroActivo;
+  });
+  var count=document.getElementById('reg-count');
+  count.textContent=filtered.length+' registro'+(filtered.length!==1?'s':'');
+  var list=document.getElementById('reg-list');
+  if(filtered.length===0){list.innerHTML='<div class="reg-empty">No hay registros'+(filtroActivo!=='todos'?' para '+filtroActivo:'')+'.</div>';return;}
+  var h='';
+  for(var i=filtered.length-1;i>=0;i--){
+    var r=filtered[i];
+    var turLabel=r.turno==='Manana'?'Mañana':r.turno;
+    var turClass=r.turno||'Noche';
+    h+='<div class="reg-card">';
+    h+='<div class="reg-card-h"><span class="rc-fmt">'+r.formato+'</span><span class="rc-tag '+turClass+'">'+turLabel+'</span><span class="rc-date">'+r.fecha+'</span></div>';
+    if(r.referencia)h+='<div class="reg-row"><span class="rk">Referencia</span><span class="rv">'+r.referencia+'</span></div>';
+    if(r.lote)h+='<div class="reg-row"><span class="rk">Lote fab.</span><span class="rv">'+r.lote+'</span></div>';
+    if(r.lote_pared)h+='<div class="reg-row"><span class="rk">Lote pared</span><span class="rv">P·'+r.lote_pared+'</span></div>';
+    if(r.lote_papel)h+='<div class="reg-row"><span class="rk">Lote papel</span><span class="rv">PB·'+r.lote_papel+'</span></div>';
+    if(r.lote_bolsa)h+='<div class="reg-row"><span class="rk">Lote bolsa</span><span class="rv">B·'+r.lote_bolsa+'</span></div>';
+    if(r.caja_inicio||r.caja_fin)h+='<div class="reg-row"><span class="rk">Cajas</span><span class="rv">'+r.caja_inicio+' - '+r.caja_fin+'</span></div>';
+    if(r.caja_pico)h+='<div class="reg-row"><span class="rk">Caja pico</span><span class="rv">'+r.caja_pico+'</span></div>';
+    if(r.operarios)h+='<div class="reg-row"><span class="rk">Operarios</span><span class="rv">'+r.operarios+'</span></div>';
+    h+='</div>';
+  }
+  list.innerHTML=h;
 }
 </script>
 </body>
