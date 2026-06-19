@@ -6,11 +6,11 @@
 <title>Trazabilidad</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0;}
-body{font-family:sans-serif;background:#0f1117;color:#e8eaf0;max-width:480px;margin:0 auto;padding-bottom:100px;}
-.header{padding:16px 20px 12px;border-bottom:1px solid #2e3347;background:#0f1117;position:sticky;top:0;z-index:10;}
+body{font-family:sans-serif;background:#0f1117;color:#e8eaf0;max-width:860px;margin:0 auto;padding-bottom:100px;}
+.header{padding:16px 24px 12px;border-bottom:1px solid #2e3347;background:#0f1117;position:sticky;top:0;z-index:10;}
 .header-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;}
-.logo{font-size:13px;font-weight:600;color:#4f8ef7;letter-spacing:0.08em;text-transform:uppercase;}
-.date-pill{font-size:11px;background:#22263a;color:#7880a0;padding:4px 10px;border-radius:20px;}
+.logo{font-size:14px;font-weight:600;color:#4f8ef7;letter-spacing:0.08em;text-transform:uppercase;}
+.date-pill{font-size:12px;background:#22263a;color:#7880a0;padding:4px 12px;border-radius:20px;}
 .steps-bar{display:flex;gap:4px;}
 .step-dot{flex:1;height:3px;border-radius:2px;background:#2e3347;}
 .step-dot.done{background:#34d9a0;}
@@ -18,21 +18,29 @@ body{font-family:sans-serif;background:#0f1117;color:#e8eaf0;max-width:480px;mar
 
 /* NAV TABS */
 .nav-tabs{display:flex;border-bottom:1px solid #2e3347;background:#0f1117;}
-.nav-tab{flex:1;padding:12px 8px;text-align:center;font-size:13px;font-weight:500;color:#7880a0;cursor:pointer;border-bottom:2px solid transparent;transition:all 0.2s;}
+.nav-tab{flex:1;padding:14px 8px;text-align:center;font-size:14px;font-weight:500;color:#7880a0;cursor:pointer;border-bottom:2px solid transparent;transition:all 0.2s;}
 .nav-tab.active{color:#4f8ef7;border-bottom-color:#4f8ef7;}
 
-.section{padding:18px 20px;}
+.section{padding:20px 24px;}
 .stitle{font-size:11px;font-weight:600;color:#7880a0;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:14px;}
-.fmts{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;}
-.fb{background:#1a1d27;border:1px solid #2e3347;border-radius:10px;padding:12px 4px;text-align:center;cursor:pointer;color:#7880a0;}
-.fb .oz{font-size:15px;font-weight:600;display:block;color:#e8eaf0;}
-.fb .lb{font-size:9px;margin-top:2px;display:block;}
+
+/* FORMATO - 2 filas en pantalla grande */
+.fmts{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;}
+.fb{background:#1a1d27;border:1px solid #2e3347;border-radius:12px;padding:16px 4px;text-align:center;cursor:pointer;color:#7880a0;}
+.fb .oz{font-size:18px;font-weight:600;display:block;color:#e8eaf0;}
+.fb .lb{font-size:10px;margin-top:2px;display:block;}
 .fb.sel{background:#1a2a4a;border-color:#4f8ef7;}
 .fb.sel .oz{color:#4f8ef7;}
-.shifts{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;}
-.sb{background:#1a1d27;border:1px solid #2e3347;border-radius:10px;padding:14px 8px;text-align:center;cursor:pointer;color:#7880a0;font-size:13px;font-weight:500;}
-.sb .ic{display:block;font-size:20px;margin-bottom:4px;}
+
+.shifts{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;}
+.sb{background:#1a1d27;border:1px solid #2e3347;border-radius:12px;padding:18px 8px;text-align:center;cursor:pointer;color:#7880a0;font-size:14px;font-weight:500;}
+.sb .ic{display:block;font-size:22px;margin-bottom:4px;}
 .sb.sel{background:#1a2a4a;border-color:#4f8ef7;color:#4f8ef7;}
+
+/* GRID 2 COLUMNAS en pantalla grande */
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+@media(max-width:600px){.grid2{grid-template-columns:1fr;}}
+
 .field{margin-bottom:14px;}
 .field label{display:block;font-size:11px;font-weight:600;color:#7880a0;text-transform:uppercase;margin-bottom:6px;}
 .mwrap{position:relative;}
@@ -52,31 +60,52 @@ body{font-family:sans-serif;background:#0f1117;color:#e8eaf0;max-width:480px;mar
 .lwrap .mic{position:absolute;right:10px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:#7880a0;padding:4px;}
 .lwrap .mic.on{color:#f7504f;}
 .lwrap .mic svg{width:18px;height:18px;}
-.row3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:14px;}
+
+.row3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:14px;}
 .row3 .field{margin-bottom:0;}
-.row3 .field input{width:100%;background:#1a1d27;border:1px solid #2e3347;border-radius:10px;padding:13px 10px;font-size:14px;color:#e8eaf0;outline:none;}
-.fecha-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;}
+.row3 .field input{width:100%;background:#1a1d27;border:1px solid #2e3347;border-radius:10px;padding:13px 10px;font-size:15px;color:#e8eaf0;outline:none;text-align:center;}
+.row3 .field input:focus{border-color:#4f8ef7;}
+
+/* UNIDADES POR CAJA */
+.ubox-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px;}
+.ubox-btn{background:#1a1d27;border:1px solid #2e3347;border-radius:12px;padding:14px 8px;text-align:center;cursor:pointer;color:#7880a0;}
+.ubox-btn .ubox-num{font-size:18px;font-weight:700;display:block;color:#e8eaf0;}
+.ubox-btn .ubox-lbl{font-size:10px;margin-top:3px;display:block;color:#7880a0;}
+.ubox-btn.sel{background:#1a2a4a;border-color:#34d9a0;}
+.ubox-btn.sel .ubox-num{color:#34d9a0;}
+
+/* TOTAL CALCULADO */
+.total-box{background:#0d2a1f;border:1px solid #34d9a0;border-radius:12px;padding:14px 18px;display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;}
+.total-box .tbl{font-size:12px;color:#34d9a0;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;}
+.total-box .tbv{font-size:22px;font-weight:700;color:#34d9a0;}
+
+.fecha-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;}
 .fecha-row input{width:100%;background:#1a1d27;border:1px solid #2e3347;border-radius:10px;padding:13px 10px;font-size:18px;color:#e8eaf0;outline:none;text-align:center;font-weight:600;}
 .fecha-row input:focus{border-color:#4f8ef7;}
 .fecha-row input::placeholder{color:#3a4060;font-size:13px;font-weight:400;}
 .fecha-note{font-size:11px;color:#7880a0;margin-top:8px;line-height:1.5;}
+
 .oplist{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px;}
-.oppill{background:#1a2a4a;border:1px solid #4f8ef7;border-radius:20px;padding:5px 10px;font-size:12px;color:#4f8ef7;display:flex;align-items:center;gap:6px;}
+.oppill{background:#1a2a4a;border:1px solid #4f8ef7;border-radius:20px;padding:5px 12px;font-size:13px;color:#4f8ef7;display:flex;align-items:center;gap:6px;}
 .oppill button{background:none;border:none;color:#4f8ef7;cursor:pointer;font-size:14px;padding:0;}
 .oprow{display:flex;gap:8px;}
 .oprow .mwrap{flex:1;}
 .oprow .mwrap input{padding:16px 42px 16px 14px;font-size:16px;}
-.addbtn{background:#4f8ef7;border:none;border-radius:10px;padding:0 16px;color:#fff;font-size:14px;font-weight:600;cursor:pointer;}
-.divider{height:1px;background:#2e3347;margin:0 20px;}
-.scard{background:#1a1d27;border:1px solid #2e3347;border-radius:14px;margin:0 20px 16px;overflow:hidden;}
+.addbtn{background:#4f8ef7;border:none;border-radius:10px;padding:0 18px;color:#fff;font-size:14px;font-weight:600;cursor:pointer;}
+
+.divider{height:1px;background:#2e3347;margin:0 24px;}
+.scard{background:#1a1d27;border:1px solid #2e3347;border-radius:14px;margin:0 24px 16px;overflow:hidden;}
 .scard-h{padding:12px 16px;background:#22263a;display:flex;align-items:center;justify-content:space-between;}
 .scard-h .tag{font-size:11px;font-weight:600;color:#34d9a0;background:#0d2a1f;border-radius:20px;padding:2px 10px;}
-.srow{display:flex;justify-content:space-between;padding:9px 16px;border-top:1px solid #2e3347;}
-.srow .k{font-size:11px;color:#7880a0;}
-.srow .v{font-size:13px;color:#e8eaf0;text-align:right;max-width:60%;word-break:break-all;}
-.note{font-size:12px;color:#7880a0;padding:10px 12px;margin-top:8px;line-height:1.5;border-left:2px solid #4f8ef7;}
-.bbar{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;padding:12px 20px 24px;background:#0f1117;border-top:1px solid #2e3347;display:flex;gap:10px;}
-.bbk{background:#1a1d27;border:1px solid #2e3347;border-radius:12px;padding:14px 20px;font-size:14px;font-weight:500;color:#7880a0;cursor:pointer;}
+.srow{display:flex;justify-content:space-between;padding:10px 16px;border-top:1px solid #2e3347;}
+.srow .k{font-size:12px;color:#7880a0;}
+.srow .v{font-size:14px;color:#e8eaf0;text-align:right;max-width:60%;word-break:break-all;}
+.srow.highlight .k{color:#34d9a0;}
+.srow.highlight .v{color:#34d9a0;font-weight:700;font-size:16px;}
+.note{font-size:12px;color:#7880a0;padding:10px 14px;margin-top:8px;line-height:1.5;border-left:2px solid #4f8ef7;}
+
+.bbar{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:860px;padding:12px 24px 24px;background:#0f1117;border-top:1px solid #2e3347;display:flex;gap:10px;}
+.bbk{background:#1a1d27;border:1px solid #2e3347;border-radius:12px;padding:14px 24px;font-size:14px;font-weight:500;color:#7880a0;cursor:pointer;}
 .bbn{flex:1;background:#4f8ef7;border:none;border-radius:12px;padding:14px;font-size:15px;font-weight:600;color:#fff;cursor:pointer;}
 .bbn:disabled{opacity:0.35;cursor:default;}
 .bbc{flex:1;background:#34d9a0;border:none;border-radius:12px;padding:14px;font-size:15px;font-weight:600;color:#0a1f16;cursor:pointer;}
@@ -90,30 +119,36 @@ body{font-family:sans-serif;background:#0f1117;color:#e8eaf0;max-width:480px;mar
 .sucicon{width:72px;height:72px;border-radius:50%;background:#0d2a1f;border:2px solid #34d9a0;margin:0 auto 20px;display:flex;align-items:center;justify-content:center;font-size:32px;}
 .suctit{font-size:22px;font-weight:600;margin-bottom:8px;}
 .sucsub{font-size:14px;color:#7880a0;margin-bottom:28px;line-height:1.6;}
-.btnnuevo{display:block;width:100%;background:#1a1d27;border:1px solid #2e3347;border-radius:12px;padding:14px;font-size:15px;font-weight:500;color:#e8eaf0;cursor:pointer;}
+.btnnuevo{display:inline-block;background:#1a1d27;border:1px solid #2e3347;border-radius:12px;padding:14px 32px;font-size:15px;font-weight:500;color:#e8eaf0;cursor:pointer;}
 .sendscreen{text-align:center;padding:60px 20px;}
 .spinner{width:48px;height:48px;border:3px solid #2e3347;border-top-color:#4f8ef7;border-radius:50%;margin:0 auto 20px;animation:spin 0.8s linear infinite;}
 @keyframes spin{to{transform:rotate(360deg);}}
 .sendtxt{font-size:16px;color:#7880a0;}
 
 /* REGISTROS */
-.reg-header{padding:16px 20px 12px;}
+.reg-header{padding:16px 24px 12px;}
 .reg-filters{display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap;}
-.reg-filter{background:#1a1d27;border:1px solid #2e3347;border-radius:20px;padding:6px 12px;font-size:12px;color:#7880a0;cursor:pointer;}
+.reg-filter{background:#1a1d27;border:1px solid #2e3347;border-radius:20px;padding:6px 14px;font-size:12px;color:#7880a0;cursor:pointer;}
 .reg-filter.active{background:#1a2a4a;border-color:#4f8ef7;color:#4f8ef7;}
 .reg-refresh{background:#1a1d27;border:1px solid #2e3347;border-radius:10px;padding:10px 16px;font-size:13px;color:#4f8ef7;cursor:pointer;display:flex;align-items:center;gap:6px;margin-bottom:14px;width:100%;}
-.reg-count{font-size:11px;color:#7880a0;margin-bottom:10px;}
-.reg-card{background:#1a1d27;border:1px solid #2e3347;border-radius:12px;margin-bottom:10px;overflow:hidden;}
-.reg-card-h{padding:10px 14px;background:#22263a;display:flex;align-items:center;justify-content:space-between;}
-.reg-card-h .rc-fmt{font-size:14px;font-weight:600;color:#e8eaf0;}
-.reg-card-h .rc-date{font-size:11px;color:#7880a0;}
-.rc-tag{font-size:10px;font-weight:600;border-radius:20px;padding:2px 8px;}
+.reg-count{font-size:11px;color:#7880a0;margin-bottom:10px;padding:0 24px;}
+.reg-list-wrap{padding:0 24px;}
+.reg-card{background:#1a1d27;border:1px solid #2e3347;border-radius:12px;margin-bottom:12px;overflow:hidden;}
+.reg-card-h{padding:11px 16px;background:#22263a;display:flex;align-items:center;gap:10px;}
+.reg-card-h .rc-fmt{font-size:14px;font-weight:700;color:#e8eaf0;min-width:48px;}
+.reg-card-h .rc-date{font-size:11px;color:#7880a0;margin-left:auto;}
+.rc-tag{font-size:10px;font-weight:600;border-radius:20px;padding:2px 10px;}
 .rc-tag.Manana{background:#2a1f0a;color:#f7c550;}
 .rc-tag.Tarde{background:#1f1a2a;color:#a07ff7;}
 .rc-tag.Noche{background:#0d1a2a;color:#4f8ef7;}
-.reg-row{display:flex;justify-content:space-between;padding:7px 14px;border-top:1px solid #2e3347;}
+.reg-body{display:grid;grid-template-columns:1fr 1fr;gap:0;}
+@media(max-width:500px){.reg-body{grid-template-columns:1fr;}}
+.reg-row{display:flex;justify-content:space-between;padding:7px 16px;border-top:1px solid #2e3347;}
 .reg-row .rk{font-size:11px;color:#7880a0;}
 .reg-row .rv{font-size:12px;color:#e8eaf0;text-align:right;max-width:65%;word-break:break-all;}
+.reg-total{display:flex;justify-content:space-between;padding:10px 16px;border-top:1px solid #34d9a0;background:#0a1f14;}
+.reg-total .rk{font-size:12px;color:#34d9a0;font-weight:600;}
+.reg-total .rv{font-size:14px;color:#34d9a0;font-weight:700;}
 .reg-empty{text-align:center;padding:50px 20px;color:#7880a0;font-size:14px;}
 .reg-loading{text-align:center;padding:40px 20px;}
 .reg-spinner{width:36px;height:36px;border:3px solid #2e3347;border-top-color:#4f8ef7;border-radius:50%;margin:0 auto 12px;animation:spin 0.8s linear infinite;}
@@ -125,7 +160,7 @@ body{font-family:sans-serif;background:#0f1117;color:#e8eaf0;max-width:480px;mar
 
 <!-- HEADER -->
 <div class="header">
-  <div class="header-top"><span class="logo">Trazabilidad</span><span class="date-pill" id="dsp"></span></div>
+  <div class="header-top"><span class="logo">Trazabilidad · Aragami</span><span class="date-pill" id="dsp"></span></div>
   <div class="steps-bar" id="steps-bar"><div class="step-dot active" id="d0"></div><div class="step-dot" id="d1"></div><div class="step-dot" id="d2"></div><div class="step-dot" id="d3"></div></div>
 </div>
 
@@ -173,11 +208,13 @@ body{font-family:sans-serif;background:#0f1117;color:#e8eaf0;max-width:480px;mar
 <div class="page" id="page1">
   <div class="section">
     <div class="stitle">Lotes de materia prima</div>
-    <div class="field"><label>Referencia</label><div class="mwrap"><input type="text" id="ref" placeholder="REF-4OZ-001" oninput="chk(this)"><button class="mic" onclick="dic('ref',this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 10a7 7 0 0 0 14 0"/><line x1="12" y1="19" x2="12" y2="22"/><line x1="8" y1="22" x2="16" y2="22"/></svg></button></div></div>
-    <div class="field"><label>Lote fabricacion</label><div class="mwrap"><input type="text" id="lot" placeholder="LF-2026-044" oninput="chk(this)"><button class="mic" onclick="dic('lot',this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 10a7 7 0 0 0 14 0"/><line x1="12" y1="19" x2="12" y2="22"/><line x1="8" y1="22" x2="16" y2="22"/></svg></button></div></div>
-    <div class="field"><label>Lote pared</label><div class="lwrap"><span class="lpfx">P·</span><input type="text" id="lpared" placeholder="L-24-089" oninput="chk(this)"><button class="mic" onclick="dic('lpared',this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 10a7 7 0 0 0 14 0"/><line x1="12" y1="19" x2="12" y2="22"/><line x1="8" y1="22" x2="16" y2="22"/></svg></button></div></div>
-    <div class="field"><label>Lote papel base</label><div class="lwrap"><span class="lpfx">PB·</span><input type="text" id="lpapel" placeholder="PB-44" oninput="chk(this)"><button class="mic" onclick="dic('lpapel',this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 10a7 7 0 0 0 14 0"/><line x1="12" y1="19" x2="12" y2="22"/><line x1="8" y1="22" x2="16" y2="22"/></svg></button></div></div>
-    <div class="field"><label>Lote bolsa PEHD</label><div class="lwrap"><span class="lpfx">B·</span><input type="text" id="lbolsa" placeholder="B-201" oninput="chk(this)"><button class="mic" onclick="dic('lbolsa',this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 10a7 7 0 0 0 14 0"/><line x1="12" y1="19" x2="12" y2="22"/><line x1="8" y1="22" x2="16" y2="22"/></svg></button></div></div>
+    <div class="grid2">
+      <div class="field"><label>Referencia</label><div class="mwrap"><input type="text" id="ref" placeholder="REF-4OZ-001" oninput="chk(this)"><button class="mic" onclick="dic('ref',this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 10a7 7 0 0 0 14 0"/><line x1="12" y1="19" x2="12" y2="22"/><line x1="8" y1="22" x2="16" y2="22"/></svg></button></div></div>
+      <div class="field"><label>Lote fabricacion</label><div class="mwrap"><input type="text" id="lot" placeholder="LF-2026-044" oninput="chk(this)"><button class="mic" onclick="dic('lot',this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 10a7 7 0 0 0 14 0"/><line x1="12" y1="19" x2="12" y2="22"/><line x1="8" y1="22" x2="16" y2="22"/></svg></button></div></div>
+      <div class="field"><label>Lote pared</label><div class="lwrap"><span class="lpfx">P·</span><input type="text" id="lpared" placeholder="L-24-089" oninput="chk(this)"><button class="mic" onclick="dic('lpared',this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 10a7 7 0 0 0 14 0"/><line x1="12" y1="19" x2="12" y2="22"/><line x1="8" y1="22" x2="16" y2="22"/></svg></button></div></div>
+      <div class="field"><label>Lote papel base</label><div class="lwrap"><span class="lpfx">PB·</span><input type="text" id="lpapel" placeholder="PB-44" oninput="chk(this)"><button class="mic" onclick="dic('lpapel',this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 10a7 7 0 0 0 14 0"/><line x1="12" y1="19" x2="12" y2="22"/><line x1="8" y1="22" x2="16" y2="22"/></svg></button></div></div>
+      <div class="field"><label>Lote bolsa PEHD</label><div class="lwrap"><span class="lpfx">B·</span><input type="text" id="lbolsa" placeholder="B-201" oninput="chk(this)"><button class="mic" onclick="dic('lbolsa',this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 10a7 7 0 0 0 14 0"/><line x1="12" y1="19" x2="12" y2="22"/><line x1="8" y1="22" x2="16" y2="22"/></svg></button></div></div>
+    </div>
   </div>
 </div>
 
@@ -185,9 +222,19 @@ body{font-family:sans-serif;background:#0f1117;color:#e8eaf0;max-width:480px;mar
   <div class="section">
     <div class="stitle">Cajas</div>
     <div class="row3">
-      <div class="field"><label>Inicio</label><input type="number" id="ci" placeholder="301" inputmode="numeric" oninput="chk(this)"></div>
-      <div class="field"><label>Fin</label><input type="number" id="cf" placeholder="348" inputmode="numeric" oninput="chk(this)"></div>
-      <div class="field"><label>Pico</label><input type="number" id="cp" placeholder="325" inputmode="numeric" oninput="chk(this)"></div>
+      <div class="field"><label>Inicio</label><input type="number" id="ci" placeholder="1" inputmode="numeric" oninput="chk(this);calcTotal()"></div>
+      <div class="field"><label>Fin</label><input type="number" id="cf" placeholder="4" inputmode="numeric" oninput="chk(this);calcTotal()"></div>
+      <div class="field"><label>Uds. pico</label><input type="number" id="cp" placeholder="0" inputmode="numeric" oninput="chk(this);calcTotal()"></div>
+    </div>
+    <div class="stitle" style="margin-top:4px;">Unidades por caja</div>
+    <div class="ubox-grid">
+      <button class="ubox-btn" onclick="selUbox(1000,this)"><span class="ubox-num">1.000</span><span class="ubox-lbl">uds / caja</span></button>
+      <button class="ubox-btn" onclick="selUbox(2250,this)"><span class="ubox-num">2.250</span><span class="ubox-lbl">uds / caja</span></button>
+      <button class="ubox-btn" onclick="selUbox(3000,this)"><span class="ubox-num">3.000</span><span class="ubox-lbl">uds / caja</span></button>
+    </div>
+    <div class="total-box" id="total-box" style="display:none;">
+      <span class="tbl">Total fabricado</span>
+      <span class="tbv" id="total-val">0 uds</span>
     </div>
   </div>
   <div class="divider"></div>
@@ -212,10 +259,12 @@ body{font-family:sans-serif;background:#0f1117;color:#e8eaf0;max-width:480px;mar
     <div class="srow"><span class="k">Lote papel</span><span class="v" id="spap"></span></div>
     <div class="srow"><span class="k">Lote bolsa</span><span class="v" id="sbol"></span></div>
     <div class="srow"><span class="k">Cajas</span><span class="v" id="scaj"></span></div>
-    <div class="srow"><span class="k">Caja pico</span><span class="v" id="spic"></span></div>
+    <div class="srow"><span class="k">Uds. pico</span><span class="v" id="spic"></span></div>
+    <div class="srow"><span class="k">Uds/caja</span><span class="v" id="subox"></span></div>
+    <div class="srow highlight"><span class="k">TOTAL FABRICADO</span><span class="v" id="stotal"></span></div>
     <div class="srow"><span class="k">Operarios</span><span class="v" id="sops"></span></div>
   </div>
-  <div class="section"><div class="note">Al confirmar los datos se escribiran en tu Google Sheets.</div></div>
+  <div class="section"><div class="note">Al confirmar los datos se escribiran en tu Google Sheets (columna L = Total fabricado).</div></div>
 </div>
 
 <div class="page" id="page-sending"><div class="sendscreen"><div class="spinner"></div><div class="sendtxt">Guardando en Google Sheets...</div></div></div>
@@ -245,12 +294,12 @@ body{font-family:sans-serif;background:#0f1117;color:#e8eaf0;max-width:480px;mar
     </div>
     <div class="reg-count" id="reg-count"></div>
   </div>
-  <div id="reg-list"></div>
+  <div class="reg-list-wrap" id="reg-list"></div>
 </div>
 
 <script>
 var SURL='https://script.google.com/macros/s/AKfycbxYuBYErrpe_Zh4to0Avy4eihD5IiO7y4Wmd3myXVv7BQsFVOtTrPE2Y2AxxmwHUY2N/exec';
-var st={fmt:null,tur:null,ref:'',lot:'',lpared:'',lpapel:'',lbolsa:'',ci:'',cf:'',cp:'',ops:[]};
+var st={fmt:null,tur:null,ref:'',lot:'',lpared:'',lpapel:'',lbolsa:'',ci:'',cf:'',cp:'0',ubox:null,total:0,ops:[]};
 var pg=0;
 var rec=null,abtn=null;
 var currentTab='registro';
@@ -282,6 +331,27 @@ function selShift(s,el){st.tur=s;document.querySelectorAll('.sb').forEach(functi
 function chkp0(){document.getElementById('bbn').disabled=!(st.fmt&&st.tur);}
 function chk(inp){if(inp.value.trim())inp.classList.add('filled');else inp.classList.remove('filled');}
 
+// ---- UNIDADES POR CAJA ----
+function selUbox(u,el){
+  st.ubox=u;
+  document.querySelectorAll('.ubox-btn').forEach(function(b){b.classList.remove('sel');});
+  el.classList.add('sel');
+  calcTotal();
+}
+
+function calcTotal(){
+  if(!st.ubox)return;
+  var ci=parseInt(document.getElementById('ci').value)||0;
+  var cf=parseInt(document.getElementById('cf').value)||0;
+  var cp=parseInt(document.getElementById('cp').value)||0;
+  if(cf>=ci&&ci>0){
+    var cajas=cf-ci+1;
+    st.total=cajas*st.ubox+cp;
+    document.getElementById('total-val').textContent=st.total.toLocaleString('es-ES')+' uds';
+    document.getElementById('total-box').style.display='flex';
+  }
+}
+
 // ---- OPERARIOS ----
 function addOp(){var inp=document.getElementById('opinput');var n=inp.value.trim();if(!n)return;for(var i=0;i<st.ops.length;i++){if(st.ops[i]===n){toast('Ya anadido','err');return;}}st.ops.push(n);renderOps();inp.value='';}
 function remOp(n){st.ops=st.ops.filter(function(o){return o!==n;});renderOps();}
@@ -300,13 +370,19 @@ function showPg(n){
   updDots();window.scrollTo(0,0);
 }
 function valP1(){var fs=['ref','lot','lpared','lpapel','lbolsa'];for(var i=0;i<fs.length;i++){if(!document.getElementById(fs[i]).value.trim())return false;}return true;}
-function valP2(){var fs=['ci','cf','cp'];for(var i=0;i<fs.length;i++){if(!document.getElementById(fs[i]).value.trim())return false;}return st.ops.length>0;}
+function valP2(){
+  var ci=document.getElementById('ci').value.trim();
+  var cf=document.getElementById('cf').value.trim();
+  if(!ci||!cf)return false;
+  if(!st.ubox){toast('Selecciona unidades por caja','err');return false;}
+  return st.ops.length>0;
+}
 function next(){
   if(pg===0&&!(st.fmt&&st.tur)){toast('Selecciona formato y turno','err');return;}
   if(pg===1&&!valP1()){toast('Rellena todos los lotes','err');return;}
-  if(pg===2&&!valP2()){toast(st.ops.length===0?'Anade al menos un operario':'Completa las cajas','err');return;}
+  if(pg===2&&!valP2()){if(st.ops.length===0)toast('Anade al menos un operario','err');else if(!st.ubox)toast('Selecciona unidades por caja','err');else toast('Completa las cajas','err');return;}
   if(pg===1){st.ref=document.getElementById('ref').value.trim();st.lot=document.getElementById('lot').value.trim();st.lpared=document.getElementById('lpared').value.trim();st.lpapel=document.getElementById('lpapel').value.trim();st.lbolsa=document.getElementById('lbolsa').value.trim();}
-  if(pg===2){st.ci=document.getElementById('ci').value.trim();st.cf=document.getElementById('cf').value.trim();st.cp=document.getElementById('cp').value.trim();fillSum();}
+  if(pg===2){st.ci=document.getElementById('ci').value.trim();st.cf=document.getElementById('cf').value.trim();st.cp=document.getElementById('cp').value.trim()||'0';calcTotal();fillSum();}
   pg++;showPg(pg);
 }
 function prev(){if(pg>0){pg--;showPg(pg);}}
@@ -316,11 +392,13 @@ function fillSum(){
   document.getElementById('sfec').textContent=getFecha();
   document.getElementById('sref').textContent=st.ref||'-';
   document.getElementById('slot').textContent=st.lot||'-';
-  document.getElementById('spar').textContent=st.lpared;
-  document.getElementById('spap').textContent=st.lpapel;
-  document.getElementById('sbol').textContent=st.lbolsa;
-  document.getElementById('scaj').textContent=st.ci+' - '+st.cf;
-  document.getElementById('spic').textContent=st.cp;
+  document.getElementById('spar').textContent='P·'+st.lpared;
+  document.getElementById('spap').textContent='PB·'+st.lpapel;
+  document.getElementById('sbol').textContent='B·'+st.lbolsa;
+  document.getElementById('scaj').textContent=st.ci+' → '+st.cf;
+  document.getElementById('spic').textContent=st.cp||'0';
+  document.getElementById('subox').textContent=st.ubox?st.ubox.toLocaleString('es-ES')+' uds/caja':'-';
+  document.getElementById('stotal').textContent=st.total.toLocaleString('es-ES')+' uds';
   document.getElementById('sops').textContent=st.ops.join(', ');
 }
 
@@ -328,19 +406,26 @@ function fillSum(){
 function confirm2(){
   showPg('sending');
   var turno=st.tur==='Manana'?'Manana':st.tur;
-  var payload={fecha:getFecha(),formato:st.fmt,turno:turno,referencia:st.ref,lote:st.lot,lote_pared:st.lpared,lote_papel:st.lpapel,lote_bolsa:st.lbolsa,caja_inicio:st.ci,caja_fin:st.cf,caja_pico:st.cp,operarios:st.ops.join(' / ')};
+  var payload={
+    fecha:getFecha(),formato:st.fmt,turno:turno,
+    referencia:st.ref,lote:st.lot,lote_pared:st.lpared,lote_papel:st.lpapel,lote_bolsa:st.lbolsa,
+    caja_inicio:st.ci,caja_fin:st.cf,caja_pico:st.cp,
+    uds_caja:st.ubox,total_fabricado:st.total,
+    operarios:st.ops.join(' / ')
+  };
   var xhr=new XMLHttpRequest();
   xhr.open('POST',SURL,true);
-  xhr.onload=function(){try{var data=JSON.parse(xhr.responseText);if(data.ok){allRegistros=[];document.getElementById('sucmsg').textContent=st.fmt+' · Turno '+turno+' · '+getFecha()+'\nDatos guardados en Google Sheets';showPg('success');}else{showPg(3);toast('Error: '+(data.error||'intentalo de nuevo'),'err');}}catch(e){showPg(3);toast('Error al procesar respuesta','err');}};
+  xhr.onload=function(){try{var data=JSON.parse(xhr.responseText);if(data.ok){allRegistros=[];document.getElementById('sucmsg').textContent=st.fmt+' · Turno '+turno+' · '+getFecha()+'\n'+st.total.toLocaleString('es-ES')+' unidades fabricadas';showPg('success');}else{showPg(3);toast('Error: '+(data.error||'intentalo de nuevo'),'err');}}catch(e){showPg(3);toast('Error al procesar respuesta','err');}};
   xhr.onerror=function(){showPg(3);toast('Error de conexion','err');};
   xhr.send(JSON.stringify(payload));
 }
 
 // ---- RESET ----
 function reset(){
-  st={fmt:null,tur:null,ref:'',lot:'',lpared:'',lpapel:'',lbolsa:'',ci:'',cf:'',cp:'',ops:[]};
+  st={fmt:null,tur:null,ref:'',lot:'',lpared:'',lpapel:'',lbolsa:'',ci:'',cf:'',cp:'0',ubox:null,total:0,ops:[]};
   document.querySelectorAll('input[type=text],input[type=number]').forEach(function(i){i.value='';i.classList.remove('filled');});
-  document.querySelectorAll('.fb,.sb').forEach(function(b){b.classList.remove('sel');});
+  document.querySelectorAll('.fb,.sb,.ubox-btn').forEach(function(b){b.classList.remove('sel');});
+  document.getElementById('total-box').style.display='none';
   initFecha();renderOps();pg=0;
   document.getElementById('bbar').style.display='flex';
   showPg(0);
@@ -377,7 +462,7 @@ function loadRegistros(){
         allRegistros=data.registros;
         renderRegistros();
       } else {
-        list.innerHTML='<div class="reg-empty">No se pudieron cargar los registros.<br><small>'+( data.error||'')+'</small></div>';
+        list.innerHTML='<div class="reg-empty">No se pudieron cargar los registros.<br><small>'+(data.error||'')+'</small></div>';
       }
     }catch(e){
       list.innerHTML='<div class="reg-empty">Error al leer los datos.</div>';
@@ -398,8 +483,7 @@ function renderRegistros(){
   var filtered=allRegistros.filter(function(r){
     return filtroActivo==='todos'||r.formato===filtroActivo;
   });
-  var count=document.getElementById('reg-count');
-  count.textContent=filtered.length+' registro'+(filtered.length!==1?'s':'');
+  document.getElementById('reg-count').textContent=filtered.length+' registro'+(filtered.length!==1?'s':'');
   var list=document.getElementById('reg-list');
   if(filtered.length===0){list.innerHTML='<div class="reg-empty">No hay registros'+(filtroActivo!=='todos'?' para '+filtroActivo:'')+'.</div>';return;}
   var h='';
@@ -409,14 +493,17 @@ function renderRegistros(){
     var turClass=r.turno||'Noche';
     h+='<div class="reg-card">';
     h+='<div class="reg-card-h"><span class="rc-fmt">'+r.formato+'</span><span class="rc-tag '+turClass+'">'+turLabel+'</span><span class="rc-date">'+r.fecha+'</span></div>';
+    h+='<div class="reg-body">';
     if(r.referencia)h+='<div class="reg-row"><span class="rk">Referencia</span><span class="rv">'+r.referencia+'</span></div>';
     if(r.lote)h+='<div class="reg-row"><span class="rk">Lote fab.</span><span class="rv">'+r.lote+'</span></div>';
     if(r.lote_pared)h+='<div class="reg-row"><span class="rk">Lote pared</span><span class="rv">P·'+r.lote_pared+'</span></div>';
     if(r.lote_papel)h+='<div class="reg-row"><span class="rk">Lote papel</span><span class="rv">PB·'+r.lote_papel+'</span></div>';
     if(r.lote_bolsa)h+='<div class="reg-row"><span class="rk">Lote bolsa</span><span class="rv">B·'+r.lote_bolsa+'</span></div>';
-    if(r.caja_inicio||r.caja_fin)h+='<div class="reg-row"><span class="rk">Cajas</span><span class="rv">'+r.caja_inicio+' - '+r.caja_fin+'</span></div>';
-    if(r.caja_pico)h+='<div class="reg-row"><span class="rk">Caja pico</span><span class="rv">'+r.caja_pico+'</span></div>';
+    if(r.caja_inicio||r.caja_fin)h+='<div class="reg-row"><span class="rk">Cajas</span><span class="rv">'+r.caja_inicio+' → '+r.caja_fin+'</span></div>';
+    if(r.caja_pico&&r.caja_pico!='0')h+='<div class="reg-row"><span class="rk">Uds. pico</span><span class="rv">'+r.caja_pico+'</span></div>';
     if(r.operarios)h+='<div class="reg-row"><span class="rk">Operarios</span><span class="rv">'+r.operarios+'</span></div>';
+    h+='</div>';
+    if(r.total_fabricado&&r.total_fabricado!='0')h+='<div class="reg-total"><span class="rk">TOTAL FABRICADO</span><span class="rv">'+Number(r.total_fabricado).toLocaleString('es-ES')+' uds</span></div>';
     h+='</div>';
   }
   list.innerHTML=h;
