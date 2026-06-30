@@ -346,6 +346,7 @@ var filtroActivo='todos';
 var loteFmtActivo='4OZ';
 // lotes guardados en memoria: {fmt: {PB:[{val,activo}], B:[{val,activo}]}}
 var lotesDB={};
+var lotesReady=false;
 var FORMATOS=['4OZ','6OZ','6.5OZ','8OZ','12OZ'];
 
 // ---- FECHA ----
@@ -354,6 +355,7 @@ function initFecha(){var d=new Date();document.getElementById('f-dia').value=d.g
 function getFecha(){var dia=String(document.getElementById('f-dia').value).padStart(2,'0');var mes=String(document.getElementById('f-mes').value).padStart(2,'0');var anio=document.getElementById('f-anio').value;return dia+'/'+mes+'/'+anio;}
 function updFecha(){var dia=document.getElementById('f-dia').value;var mes=document.getElementById('f-mes').value;var anio=document.getElementById('f-anio').value;if(dia&&mes&&anio){document.getElementById('dsp').textContent=String(dia).padStart(2,'0')+'/'+String(mes).padStart(2,'0')+'/'+anio;}}
 initFecha();
+loadLotesPublic();
 
 // ---- TABS ----
 function switchTab(tab){
@@ -584,6 +586,23 @@ function loadLotesFromSheets(){
       }
     }catch(e){}
   };
+  xhr.send();
+}
+
+function loadLotesPublic(){
+  var xhr=new XMLHttpRequest();
+  xhr.open('GET',SURL+'?action=getLotes',true);
+  xhr.onload=function(){
+    try{
+      var data=JSON.parse(xhr.responseText);
+      if(data.ok&&data.lotes){
+        lotesDB=data.lotes;
+        lotesReady=true;
+        if(st.fmt)cargarLotesAuto(st.fmt);
+      }
+    }catch(e){}
+  };
+  xhr.onerror=function(){};
   xhr.send();
 }
 
