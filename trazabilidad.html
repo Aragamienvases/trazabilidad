@@ -151,6 +151,8 @@ body{font-family:sans-serif;background:#0f1117;color:#e8eaf0;max-width:860px;mar
 .lote-item .liact{font-size:10px;color:#34d9a0;font-weight:700;background:#0d2a1f;border-radius:20px;padding:2px 8px;margin-left:8px;}
 .lote-item .lisel{background:#1a2a4a;border:1px solid #4f8ef7;border-radius:8px;padding:5px 10px;font-size:11px;color:#4f8ef7;cursor:pointer;}
 .lote-item .lisel.activo{background:#0d2a1f;border-color:#34d9a0;color:#34d9a0;cursor:default;}
+.lote-item .libtns{display:flex;gap:6px;align-items:center;}
+.lote-item .lidel{background:#2a1414;border:1px solid #6a2424;border-radius:8px;padding:5px 8px;font-size:11px;color:#f7504f;cursor:pointer;}
 .lote-add{padding:12px 16px;border-top:1px solid #2e3347;display:flex;gap:8px;}
 .lote-add input{flex:1;background:#0f1117;border:1px solid #2e3347;border-radius:8px;padding:10px 12px;font-size:14px;color:#e8eaf0;outline:none;}
 .lote-add input:focus{border-color:#4f8ef7;}
@@ -606,12 +608,14 @@ function renderMaterial(fmt,mat,label,ic){
     var item=items[i];
     h+='<div class="lote-item">';
     h+='<span class="lival">'+mat+'·'+item.val+'</span>';
+    h+='<div class="libtns">';
     if(item.activo){
       h+='<span class="liact">✓ EN USO</span>';
     } else {
       h+='<button class="lisel" onclick="setLoteActivo(\''+fmt+'\',\''+mat+'\','+i+')">Usar este</button>';
+      h+='<button class="lidel" onclick="delLote(\''+fmt+'\',\''+mat+'\','+i+')">🗑️</button>';
     }
-    h+='</div>';
+    h+='</div></div>';
   }
   h+='<div class="lote-add">';
   h+='<input type="text" id="newinp-'+fmt+'-'+mat+'" placeholder="Nuevo lote '+mat+'·..." style="text-transform:uppercase">';
@@ -628,8 +632,18 @@ function setLoteActivo(fmt,mat,idx){
   saveLotesToSheets();
   renderLotesPanel();
   toast('Lote '+mat+'· activado','ok');
-  // actualizar campo automático si el formato activo coincide
   if(st.fmt===fmt)cargarLotesAuto(fmt);
+}
+
+function delLote(fmt,mat,idx){
+  if(!lotesDB[fmt]||!lotesDB[fmt][mat])return;
+  var item=lotesDB[fmt][mat][idx];
+  if(item.activo){toast('No puedes borrar el lote activo','err');return;}
+  if(!confirm('¿Borrar el lote '+mat+'·'+item.val+'?'))return;
+  lotesDB[fmt][mat].splice(idx,1);
+  saveLotesToSheets();
+  renderLotesPanel();
+  toast('Lote borrado','ok');
 }
 
 function addLote(fmt,mat){
