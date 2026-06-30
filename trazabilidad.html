@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>Trazabilidad</title>
+<title>Trazabilidad · Aragami</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0;}
 body{font-family:sans-serif;background:#0f1117;color:#e8eaf0;max-width:860px;margin:0 auto;padding-bottom:100px;}
@@ -15,32 +15,23 @@ body{font-family:sans-serif;background:#0f1117;color:#e8eaf0;max-width:860px;mar
 .step-dot{flex:1;height:3px;border-radius:2px;background:#2e3347;}
 .step-dot.done{background:#34d9a0;}
 .step-dot.active{background:#4f8ef7;}
-
-/* NAV TABS */
 .nav-tabs{display:flex;border-bottom:1px solid #2e3347;background:#0f1117;}
-.nav-tab{flex:1;padding:14px 8px;text-align:center;font-size:14px;font-weight:500;color:#7880a0;cursor:pointer;border-bottom:2px solid transparent;transition:all 0.2s;}
+.nav-tab{flex:1;padding:13px 4px;text-align:center;font-size:13px;font-weight:500;color:#7880a0;cursor:pointer;border-bottom:2px solid transparent;transition:all 0.2s;}
 .nav-tab.active{color:#4f8ef7;border-bottom-color:#4f8ef7;}
-
 .section{padding:20px 24px;}
 .stitle{font-size:11px;font-weight:600;color:#7880a0;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:14px;}
-
-/* FORMATO - 2 filas en pantalla grande */
 .fmts{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;}
 .fb{background:#1a1d27;border:1px solid #2e3347;border-radius:12px;padding:16px 4px;text-align:center;cursor:pointer;color:#7880a0;}
 .fb .oz{font-size:18px;font-weight:600;display:block;color:#e8eaf0;}
 .fb .lb{font-size:10px;margin-top:2px;display:block;}
 .fb.sel{background:#1a2a4a;border-color:#4f8ef7;}
 .fb.sel .oz{color:#4f8ef7;}
-
 .shifts{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;}
 .sb{background:#1a1d27;border:1px solid #2e3347;border-radius:12px;padding:18px 8px;text-align:center;cursor:pointer;color:#7880a0;font-size:14px;font-weight:500;}
 .sb .ic{display:block;font-size:22px;margin-bottom:4px;}
 .sb.sel{background:#1a2a4a;border-color:#4f8ef7;color:#4f8ef7;}
-
-/* GRID 2 COLUMNAS en pantalla grande */
 .grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
 @media(max-width:600px){.grid2{grid-template-columns:1fr;}}
-
 .field{margin-bottom:14px;}
 .field label{display:block;font-size:11px;font-weight:600;color:#7880a0;text-transform:uppercase;margin-bottom:6px;}
 .mwrap{position:relative;}
@@ -48,6 +39,7 @@ body{font-family:sans-serif;background:#0f1117;color:#e8eaf0;max-width:860px;mar
 .mwrap input:focus{border-color:#4f8ef7;}
 .mwrap input::placeholder{color:#7880a0;}
 .mwrap input.filled{border-color:#2a4a2a;}
+.mwrap input[readonly]{background:#12151f;color:#7880a0;border-color:#22263a;cursor:default;}
 .mwrap .mic{position:absolute;right:10px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:#7880a0;padding:4px;}
 .mwrap .mic.on{color:#f7504f;}
 .mwrap .mic svg{width:18px;height:18px;}
@@ -56,35 +48,30 @@ body{font-family:sans-serif;background:#0f1117;color:#e8eaf0;max-width:860px;mar
 .lwrap input:focus{border-color:#4f8ef7;}
 .lwrap input::placeholder{color:#7880a0;}
 .lwrap input.filled{border-color:#2a4a2a;}
+.lwrap input[readonly]{background:#12151f;color:#34d9a0;border-color:#1a3a2a;cursor:default;}
 .lpfx{position:absolute;left:14px;top:50%;transform:translateY(-50%);font-size:12px;color:#4f8ef7;font-weight:500;pointer-events:none;}
 .lwrap .mic{position:absolute;right:10px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:#7880a0;padding:4px;}
 .lwrap .mic.on{color:#f7504f;}
 .lwrap .mic svg{width:18px;height:18px;}
-
+.auto-badge{position:absolute;right:10px;top:50%;transform:translateY(-50%);font-size:9px;font-weight:700;color:#34d9a0;background:#0d2a1f;border-radius:10px;padding:2px 6px;pointer-events:none;}
 .row3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:14px;}
 .row3 .field{margin-bottom:0;}
 .row3 .field input{width:100%;background:#1a1d27;border:1px solid #2e3347;border-radius:10px;padding:13px 10px;font-size:15px;color:#e8eaf0;outline:none;text-align:center;}
 .row3 .field input:focus{border-color:#4f8ef7;}
-
-/* UNIDADES POR CAJA */
 .ubox-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px;}
 .ubox-btn{background:#1a1d27;border:1px solid #2e3347;border-radius:12px;padding:14px 8px;text-align:center;cursor:pointer;color:#7880a0;}
 .ubox-btn .ubox-num{font-size:18px;font-weight:700;display:block;color:#e8eaf0;}
 .ubox-btn .ubox-lbl{font-size:10px;margin-top:3px;display:block;color:#7880a0;}
 .ubox-btn.sel{background:#1a2a4a;border-color:#34d9a0;}
 .ubox-btn.sel .ubox-num{color:#34d9a0;}
-
-/* TOTAL CALCULADO */
 .total-box{background:#0d2a1f;border:1px solid #34d9a0;border-radius:12px;padding:14px 18px;display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;}
 .total-box .tbl{font-size:12px;color:#34d9a0;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;}
 .total-box .tbv{font-size:22px;font-weight:700;color:#34d9a0;}
-
 .fecha-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;}
 .fecha-row input{width:100%;background:#1a1d27;border:1px solid #2e3347;border-radius:10px;padding:13px 10px;font-size:18px;color:#e8eaf0;outline:none;text-align:center;font-weight:600;}
 .fecha-row input:focus{border-color:#4f8ef7;}
 .fecha-row input::placeholder{color:#3a4060;font-size:13px;font-weight:400;}
 .fecha-note{font-size:11px;color:#7880a0;margin-top:8px;line-height:1.5;}
-
 .oplist{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px;}
 .oppill{background:#1a2a4a;border:1px solid #4f8ef7;border-radius:20px;padding:5px 12px;font-size:13px;color:#4f8ef7;display:flex;align-items:center;gap:6px;}
 .oppill button{background:none;border:none;color:#4f8ef7;cursor:pointer;font-size:14px;padding:0;}
@@ -92,7 +79,6 @@ body{font-family:sans-serif;background:#0f1117;color:#e8eaf0;max-width:860px;mar
 .oprow .mwrap{flex:1;}
 .oprow .mwrap input{padding:16px 42px 16px 14px;font-size:16px;}
 .addbtn{background:#4f8ef7;border:none;border-radius:10px;padding:0 18px;color:#fff;font-size:14px;font-weight:600;cursor:pointer;}
-
 .divider{height:1px;background:#2e3347;margin:0 24px;}
 .scard{background:#1a1d27;border:1px solid #2e3347;border-radius:14px;margin:0 24px 16px;overflow:hidden;}
 .scard-h{padding:12px 16px;background:#22263a;display:flex;align-items:center;justify-content:space-between;}
@@ -103,7 +89,6 @@ body{font-family:sans-serif;background:#0f1117;color:#e8eaf0;max-width:860px;mar
 .srow.highlight .k{color:#34d9a0;}
 .srow.highlight .v{color:#34d9a0;font-weight:700;font-size:16px;}
 .note{font-size:12px;color:#7880a0;padding:10px 14px;margin-top:8px;line-height:1.5;border-left:2px solid #4f8ef7;}
-
 .bbar{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:860px;padding:12px 24px 24px;background:#0f1117;border-top:1px solid #2e3347;display:flex;gap:10px;}
 .bbk{background:#1a1d27;border:1px solid #2e3347;border-radius:12px;padding:14px 24px;font-size:14px;font-weight:500;color:#7880a0;cursor:pointer;}
 .bbn{flex:1;background:#4f8ef7;border:none;border-radius:12px;padding:14px;font-size:15px;font-weight:600;color:#fff;cursor:pointer;}
@@ -124,7 +109,6 @@ body{font-family:sans-serif;background:#0f1117;color:#e8eaf0;max-width:860px;mar
 .spinner{width:48px;height:48px;border:3px solid #2e3347;border-top-color:#4f8ef7;border-radius:50%;margin:0 auto 20px;animation:spin 0.8s linear infinite;}
 @keyframes spin{to{transform:rotate(360deg);}}
 .sendtxt{font-size:16px;color:#7880a0;}
-
 /* REGISTROS */
 .reg-header{padding:16px 24px 12px;}
 .reg-filters{display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap;}
@@ -153,26 +137,50 @@ body{font-family:sans-serif;background:#0f1117;color:#e8eaf0;max-width:860px;mar
 .reg-loading{text-align:center;padding:40px 20px;}
 .reg-spinner{width:36px;height:36px;border:3px solid #2e3347;border-top-color:#4f8ef7;border-radius:50%;margin:0 auto 12px;animation:spin 0.8s linear infinite;}
 .reg-loading-txt{font-size:13px;color:#7880a0;}
+/* LOTES TAB */
+.lotes-wrap{padding:0 24px 40px;}
+.lotes-fmt-sel{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-bottom:20px;padding:16px 24px 0;}
+.lfb{background:#1a1d27;border:1px solid #2e3347;border-radius:10px;padding:12px 4px;text-align:center;cursor:pointer;color:#7880a0;font-size:13px;font-weight:600;}
+.lfb.sel{background:#1a2a4a;border-color:#4f8ef7;color:#4f8ef7;}
+.lote-material{background:#1a1d27;border:1px solid #2e3347;border-radius:14px;margin-bottom:14px;overflow:hidden;}
+.lote-mat-h{padding:12px 16px;background:#22263a;display:flex;align-items:center;justify-content:space-between;}
+.lote-mat-h .lmtit{font-size:13px;font-weight:600;color:#e8eaf0;}
+.lote-mat-h .lmbadge{font-size:10px;font-weight:600;background:#0d2a1f;color:#34d9a0;border-radius:20px;padding:2px 10px;}
+.lote-item{display:flex;align-items:center;justify-content:space-between;padding:10px 16px;border-top:1px solid #2e3347;}
+.lote-item .lival{font-size:14px;color:#e8eaf0;font-weight:500;}
+.lote-item .liact{font-size:10px;color:#34d9a0;font-weight:700;background:#0d2a1f;border-radius:20px;padding:2px 8px;margin-left:8px;}
+.lote-item .lisel{background:#1a2a4a;border:1px solid #4f8ef7;border-radius:8px;padding:5px 10px;font-size:11px;color:#4f8ef7;cursor:pointer;}
+.lote-item .lisel.activo{background:#0d2a1f;border-color:#34d9a0;color:#34d9a0;cursor:default;}
+.lote-add{padding:12px 16px;border-top:1px solid #2e3347;display:flex;gap:8px;}
+.lote-add input{flex:1;background:#0f1117;border:1px solid #2e3347;border-radius:8px;padding:10px 12px;font-size:14px;color:#e8eaf0;outline:none;}
+.lote-add input:focus{border-color:#4f8ef7;}
+.lote-add input::placeholder{color:#7880a0;}
+.lote-add-btn{background:#4f8ef7;border:none;border-radius:8px;padding:0 14px;color:#fff;font-size:13px;font-weight:600;cursor:pointer;}
+/* ADMIN LOCK */
+.admin-lock{text-align:center;padding:40px 24px;}
+.admin-lock-icon{font-size:40px;margin-bottom:16px;}
+.admin-lock-txt{font-size:14px;color:#7880a0;margin-bottom:20px;}
+.admin-pin{display:flex;gap:8px;justify-content:center;margin-bottom:16px;}
+.admin-pin input{width:80px;background:#1a1d27;border:1px solid #2e3347;border-radius:10px;padding:14px 10px;font-size:20px;color:#e8eaf0;text-align:center;outline:none;}
+.admin-pin input:focus{border-color:#4f8ef7;}
+.admin-unlock-btn{background:#4f8ef7;border:none;border-radius:12px;padding:12px 32px;font-size:14px;font-weight:600;color:#fff;cursor:pointer;}
+.admin-logout{font-size:12px;color:#7880a0;cursor:pointer;padding:8px 16px;background:#1a1d27;border:1px solid #2e3347;border-radius:8px;}
 </style>
 </head>
 <body>
 <div class="toast" id="toast"></div>
-
-<!-- HEADER -->
 <div class="header">
   <div class="header-top"><span class="logo">Trazabilidad · Aragami</span><span class="date-pill" id="dsp"></span></div>
   <div class="steps-bar" id="steps-bar"><div class="step-dot active" id="d0"></div><div class="step-dot" id="d1"></div><div class="step-dot" id="d2"></div><div class="step-dot" id="d3"></div></div>
 </div>
-
-<!-- NAV TABS -->
 <div class="nav-tabs">
   <div class="nav-tab active" id="tab-registro" onclick="switchTab('registro')">📋 Registro</div>
   <div class="nav-tab" id="tab-registros" onclick="switchTab('registros')">📊 Registros</div>
+  <div class="nav-tab" id="tab-lotes" onclick="switchTab('lotes')">🏷️ Lotes</div>
 </div>
 
-<!-- ========== TAB REGISTRO ========== -->
+<!-- ===== TAB REGISTRO ===== -->
 <div id="tabcontent-registro">
-
 <div class="page active" id="page0">
   <div class="section">
     <div class="stitle">Formato de vaso</div>
@@ -211,9 +219,9 @@ body{font-family:sans-serif;background:#0f1117;color:#e8eaf0;max-width:860px;mar
     <div class="grid2">
       <div class="field"><label>Referencia</label><div class="mwrap"><input type="text" id="ref" placeholder="REF-4OZ-001" oninput="chk(this)"><button class="mic" onclick="dic('ref',this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 10a7 7 0 0 0 14 0"/><line x1="12" y1="19" x2="12" y2="22"/><line x1="8" y1="22" x2="16" y2="22"/></svg></button></div></div>
       <div class="field"><label>Lote fabricacion</label><div class="mwrap"><input type="text" id="lot" placeholder="LF-2026-044" oninput="chk(this)"><button class="mic" onclick="dic('lot',this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 10a7 7 0 0 0 14 0"/><line x1="12" y1="19" x2="12" y2="22"/><line x1="8" y1="22" x2="16" y2="22"/></svg></button></div></div>
-      <div class="field"><label>Lote pared</label><div class="lwrap"><span class="lpfx">P·</span><input type="text" id="lpared" placeholder="L-24-089" oninput="chk(this)"><button class="mic" onclick="dic('lpared',this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 10a7 7 0 0 0 14 0"/><line x1="12" y1="19" x2="12" y2="22"/><line x1="8" y1="22" x2="16" y2="22"/></svg></button></div></div>
-      <div class="field"><label>Lote papel base</label><div class="lwrap"><span class="lpfx">PB·</span><input type="text" id="lpapel" placeholder="PB-44" oninput="chk(this)"><button class="mic" onclick="dic('lpapel',this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 10a7 7 0 0 0 14 0"/><line x1="12" y1="19" x2="12" y2="22"/><line x1="8" y1="22" x2="16" y2="22"/></svg></button></div></div>
-      <div class="field"><label>Lote bolsa PEHD</label><div class="lwrap"><span class="lpfx">B·</span><input type="text" id="lbolsa" placeholder="B-201" oninput="chk(this)"><button class="mic" onclick="dic('lbolsa',this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 10a7 7 0 0 0 14 0"/><line x1="12" y1="19" x2="12" y2="22"/><line x1="8" y1="22" x2="16" y2="22"/></svg></button></div></div>
+      <div class="field"><label>Lote pared <span style="color:#e8eaf0;font-size:10px;font-weight:400;text-transform:none">(introducir manualmente)</span></label><div class="lwrap"><span class="lpfx">P·</span><input type="text" id="lpared" placeholder="escribe o dicta" oninput="chk(this)"><button class="mic" onclick="dic('lpared',this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 10a7 7 0 0 0 14 0"/><line x1="12" y1="19" x2="12" y2="22"/><line x1="8" y1="22" x2="16" y2="22"/></svg></button></div></div>
+      <div class="field"><label>Lote papel base <span style="color:#34d9a0;font-size:10px;font-weight:400;text-transform:none">✓ automático</span></label><div class="lwrap"><span class="lpfx">PB·</span><input type="text" id="lpapel" placeholder="cargando..." readonly><span class="auto-badge">AUTO</span></div></div>
+      <div class="field"><label>Lote bolsa PEHD <span style="color:#34d9a0;font-size:10px;font-weight:400;text-transform:none">✓ automático</span></label><div class="lwrap"><span class="lpfx">B·</span><input type="text" id="lbolsa" placeholder="cargando..." readonly><span class="auto-badge">AUTO</span></div></div>
     </div>
   </div>
 </div>
@@ -264,27 +272,24 @@ body{font-family:sans-serif;background:#0f1117;color:#e8eaf0;max-width:860px;mar
     <div class="srow highlight"><span class="k">TOTAL FABRICADO</span><span class="v" id="stotal"></span></div>
     <div class="srow"><span class="k">Operarios</span><span class="v" id="sops"></span></div>
   </div>
-  <div class="section"><div class="note">Al confirmar los datos se escribiran en tu Google Sheets (columna L = Total fabricado).</div></div>
+  <div class="section"><div class="note">Al confirmar los datos se escribiran en Google Sheets.</div></div>
 </div>
-
 <div class="page" id="page-sending"><div class="sendscreen"><div class="spinner"></div><div class="sendtxt">Guardando en Google Sheets...</div></div></div>
 <div class="page" id="page-success"><div class="sucscreen"><div class="sucicon">✓</div><div class="suctit">Datos guardados!</div><div class="sucsub" id="sucmsg"></div><button class="btnnuevo" onclick="reset()">Registrar otro turno</button></div></div>
-
 <div class="bbar" id="bbar">
   <button class="bbk" id="bbk" onclick="prev()" style="display:none">Atras</button>
   <button class="bbn" id="bbn" onclick="next()" disabled>Siguiente</button>
 </div>
+</div>
 
-</div><!-- end tabcontent-registro -->
-
-<!-- ========== TAB REGISTROS ========== -->
+<!-- ===== TAB REGISTROS ===== -->
 <div id="tabcontent-registros" style="display:none;padding-bottom:40px;">
   <div class="reg-header">
     <button class="reg-refresh" onclick="loadRegistros()">
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
       Actualizar registros
     </button>
-    <div class="reg-filters" id="reg-filters">
+    <div class="reg-filters">
       <div class="reg-filter active" onclick="setFiltro('todos',this)">Todos</div>
       <div class="reg-filter" onclick="setFiltro('4OZ',this)">4OZ</div>
       <div class="reg-filter" onclick="setFiltro('6OZ',this)">6OZ</div>
@@ -297,14 +302,49 @@ body{font-family:sans-serif;background:#0f1117;color:#e8eaf0;max-width:860px;mar
   <div class="reg-list-wrap" id="reg-list"></div>
 </div>
 
+<!-- ===== TAB LOTES ===== -->
+<div id="tabcontent-lotes" style="display:none;padding-bottom:40px;">
+  <!-- LOCK SCREEN -->
+  <div id="lotes-lock">
+    <div class="admin-lock">
+      <div class="admin-lock-icon">🔒</div>
+      <div class="admin-lock-txt">Acceso de administrador para gestionar lotes predefinidos</div>
+      <div class="admin-pin">
+        <input type="password" id="pinput" placeholder="••••" maxlength="4" inputmode="numeric" onkeydown="if(event.key==='Enter')unlockAdmin()">
+      </div>
+      <button class="admin-unlock-btn" onclick="unlockAdmin()">Entrar</button>
+    </div>
+  </div>
+  <!-- ADMIN PANEL -->
+  <div id="lotes-panel" style="display:none;">
+    <div style="padding:14px 24px;display:flex;justify-content:space-between;align-items:center;">
+      <span style="font-size:13px;color:#34d9a0;font-weight:600;">🔓 Administrador</span>
+      <button class="admin-logout" onclick="lockAdmin()">Cerrar sesión</button>
+    </div>
+    <div class="lotes-fmt-sel">
+      <button class="lfb sel" onclick="selLoteFmt('4OZ',this)">4OZ</button>
+      <button class="lfb" onclick="selLoteFmt('6OZ',this)">6OZ</button>
+      <button class="lfb" onclick="selLoteFmt('6.5OZ',this)">6.5OZ</button>
+      <button class="lfb" onclick="selLoteFmt('8OZ',this)">8OZ</button>
+      <button class="lfb" onclick="selLoteFmt('12OZ',this)">12OZ</button>
+    </div>
+    <div class="lotes-wrap" id="lotes-contenido"></div>
+  </div>
+</div>
+
 <script>
 var SURL='https://script.google.com/macros/s/AKfycbxYuBYErrpe_Zh4to0Avy4eihD5IiO7y4Wmd3myXVv7BQsFVOtTrPE2Y2AxxmwHUY2N/exec';
+var ADMIN_PIN='2026';
 var st={fmt:null,tur:null,ref:'',lot:'',lpared:'',lpapel:'',lbolsa:'',ci:'',cf:'',cp:'0',ubox:null,total:0,ops:[]};
 var pg=0;
 var rec=null,abtn=null;
 var currentTab='registro';
 var allRegistros=[];
 var filtroActivo='todos';
+var loteFmtActivo='4OZ';
+// lotes guardados en memoria: {fmt: {PB:[{val,activo}], B:[{val,activo}]}}
+var lotesDB={};
+var FORMATOS=['4OZ','6OZ','6.5OZ','8OZ','12OZ'];
 
 // ---- FECHA ----
 function gday(){var d=new Date();var ds=['Dom','Lun','Mar','Mie','Jue','Vie','Sab'];var ms=['ene','feb','mar','abr','may','jun','jul','ago','sep','oct','nov','dic'];return ds[d.getDay()]+' '+d.getDate()+' '+ms[d.getMonth()];}
@@ -316,40 +356,57 @@ initFecha();
 // ---- TABS ----
 function switchTab(tab){
   currentTab=tab;
-  document.getElementById('tabcontent-registro').style.display=tab==='registro'?'block':'none';
-  document.getElementById('tabcontent-registros').style.display=tab==='registros'?'block':'none';
-  document.getElementById('tab-registro').className='nav-tab'+(tab==='registro'?' active':'');
-  document.getElementById('tab-registros').className='nav-tab'+(tab==='registros'?' active':'');
+  ['registro','registros','lotes'].forEach(function(t){
+    document.getElementById('tabcontent-'+t).style.display=t===tab?'block':'none';
+    document.getElementById('tab-'+t).className='nav-tab'+(t===tab?' active':'');
+  });
   document.getElementById('steps-bar').style.display=tab==='registro'?'flex':'none';
   document.getElementById('bbar').style.display=tab==='registro'?'flex':'none';
   if(tab==='registros'&&allRegistros.length===0)loadRegistros();
+  if(tab==='lotes')renderLotesPanel();
 }
 
 // ---- FORMATO / TURNO ----
-function selFmt(f,el){st.fmt=f;document.querySelectorAll('.fb').forEach(function(b){b.classList.remove('sel');});el.classList.add('sel');chkp0();}
+function selFmt(f,el){
+  st.fmt=f;
+  document.querySelectorAll('.fb').forEach(function(b){b.classList.remove('sel');});
+  el.classList.add('sel');
+  chkp0();
+  // cargar lotes automáticos para este formato
+  cargarLotesAuto(f);
+}
 function selShift(s,el){st.tur=s;document.querySelectorAll('.sb').forEach(function(b){b.classList.remove('sel');});el.classList.add('sel');chkp0();}
 function chkp0(){document.getElementById('bbn').disabled=!(st.fmt&&st.tur);}
 function chk(inp){if(inp.value.trim())inp.classList.add('filled');else inp.classList.remove('filled');}
 
-// ---- UNIDADES POR CAJA ----
-function selUbox(u,el){
-  st.ubox=u;
-  document.querySelectorAll('.ubox-btn').forEach(function(b){b.classList.remove('sel');});
-  el.classList.add('sel');
-  calcTotal();
+// ---- LOTES AUTOMÁTICOS ----
+function cargarLotesAuto(fmt){
+  var pb=getLoteActivo(fmt,'PB');
+  var b=getLoteActivo(fmt,'B');
+  var inpPB=document.getElementById('lpapel');
+  var inpB=document.getElementById('lbolsa');
+  inpPB.value=pb||'';
+  inpB.value=b||'';
+  if(pb)inpPB.classList.add('filled'); else inpPB.classList.remove('filled');
+  if(b)inpB.classList.add('filled'); else inpB.classList.remove('filled');
 }
 
+function getLoteActivo(fmt,mat){
+  if(!lotesDB[fmt]||!lotesDB[fmt][mat])return '';
+  for(var i=0;i<lotesDB[fmt][mat].length;i++){
+    if(lotesDB[fmt][mat][i].activo)return lotesDB[fmt][mat][i].val;
+  }
+  return '';
+}
+
+// ---- UNIDADES POR CAJA ----
+function selUbox(u,el){st.ubox=u;document.querySelectorAll('.ubox-btn').forEach(function(b){b.classList.remove('sel');});el.classList.add('sel');calcTotal();}
 function calcTotal(){
   if(!st.ubox)return;
   var ci=parseInt(document.getElementById('ci').value)||0;
   var cf=parseInt(document.getElementById('cf').value)||0;
   var cp=parseInt(document.getElementById('cp').value)||0;
-  if(cf>=ci&&ci>0){
-    var cajas=cf-ci+1;
-    st.total=cajas*st.ubox+cp;
-    document.getElementById('total-val').textContent=st.total.toLocaleString('es-ES')+' uds';
-    document.getElementById('total-box').style.display='flex';
-  }
+  if(cf>=ci&&ci>0){var cajas=cf-ci+1;st.total=cajas*st.ubox+cp;document.getElementById('total-val').textContent=st.total.toLocaleString('es-ES')+' uds';document.getElementById('total-box').style.display='flex';}
 }
 
 // ---- OPERARIOS ----
@@ -369,7 +426,14 @@ function showPg(n){
   else{bar.style.display='flex';bar.innerHTML='<button class="bbk" id="bbk" onclick="prev()" style="display:'+(n>0?'block':'none')+'">Atras</button><button class="bbn" id="bbn" onclick="next()" '+(n===0?'disabled':'')+'>Siguiente</button>';if(n===0)chkp0();}
   updDots();window.scrollTo(0,0);
 }
-function valP1(){var fs=['ref','lot','lpared','lpapel','lbolsa'];for(var i=0;i<fs.length;i++){if(!document.getElementById(fs[i]).value.trim())return false;}return true;}
+function valP1(){
+  if(!document.getElementById('ref').value.trim())return false;
+  if(!document.getElementById('lot').value.trim())return false;
+  if(!document.getElementById('lpared').value.trim())return false;
+  if(!document.getElementById('lpapel').value.trim()){toast('No hay lote PB· configurado para este formato','err');return false;}
+  if(!document.getElementById('lbolsa').value.trim()){toast('No hay lote B· configurado para este formato','err');return false;}
+  return true;
+}
 function valP2(){
   var ci=document.getElementById('ci').value.trim();
   var cf=document.getElementById('cf').value.trim();
@@ -379,8 +443,8 @@ function valP2(){
 }
 function next(){
   if(pg===0&&!(st.fmt&&st.tur)){toast('Selecciona formato y turno','err');return;}
-  if(pg===1&&!valP1()){toast('Rellena todos los lotes','err');return;}
-  if(pg===2&&!valP2()){if(st.ops.length===0)toast('Anade al menos un operario','err');else if(!st.ubox)toast('Selecciona unidades por caja','err');else toast('Completa las cajas','err');return;}
+  if(pg===1&&!valP1()){if(!document.getElementById('ref').value.trim()||!document.getElementById('lot').value.trim()||!document.getElementById('lpared').value.trim())toast('Rellena todos los campos','err');return;}
+  if(pg===2&&!valP2()){if(st.ops.length===0)toast('Anade al menos un operario','err');return;}
   if(pg===1){st.ref=document.getElementById('ref').value.trim();st.lot=document.getElementById('lot').value.trim();st.lpared=document.getElementById('lpared').value.trim();st.lpapel=document.getElementById('lpapel').value.trim();st.lbolsa=document.getElementById('lbolsa').value.trim();}
   if(pg===2){st.ci=document.getElementById('ci').value.trim();st.cf=document.getElementById('cf').value.trim();st.cp=document.getElementById('cp').value.trim()||'0';calcTotal();fillSum();}
   pg++;showPg(pg);
@@ -406,13 +470,7 @@ function fillSum(){
 function confirm2(){
   showPg('sending');
   var turno=st.tur==='Manana'?'Manana':st.tur;
-  var payload={
-    fecha:getFecha(),formato:st.fmt,turno:turno,
-    referencia:st.ref,lote:st.lot,lote_pared:st.lpared,lote_papel:st.lpapel,lote_bolsa:st.lbolsa,
-    caja_inicio:st.ci,caja_fin:st.cf,caja_pico:st.cp,
-    uds_caja:st.ubox,total_fabricado:st.total,
-    operarios:st.ops.join(' / ')
-  };
+  var payload={fecha:getFecha(),formato:st.fmt,turno:turno,referencia:st.ref,lote:st.lot,lote_pared:st.lpared,lote_papel:st.lpapel,lote_bolsa:st.lbolsa,caja_inicio:st.ci,caja_fin:st.cf,caja_pico:st.cp,uds_caja:st.ubox,total_fabricado:st.total,operarios:st.ops.join(' / ')};
   var xhr=new XMLHttpRequest();
   xhr.open('POST',SURL,true);
   xhr.onload=function(){try{var data=JSON.parse(xhr.responseText);if(data.ok){allRegistros=[];document.getElementById('sucmsg').textContent=st.fmt+' · Turno '+turno+' · '+getFecha()+'\n'+st.total.toLocaleString('es-ES')+' unidades fabricadas';showPg('success');}else{showPg(3);toast('Error: '+(data.error||'intentalo de nuevo'),'err');}}catch(e){showPg(3);toast('Error al procesar respuesta','err');}};
@@ -423,8 +481,9 @@ function confirm2(){
 // ---- RESET ----
 function reset(){
   st={fmt:null,tur:null,ref:'',lot:'',lpared:'',lpapel:'',lbolsa:'',ci:'',cf:'',cp:'0',ubox:null,total:0,ops:[]};
-  document.querySelectorAll('input[type=text],input[type=number]').forEach(function(i){i.value='';i.classList.remove('filled');});
+  document.querySelectorAll('input[type=text],input[type=number]').forEach(function(i){if(!i.readOnly){i.value='';i.classList.remove('filled');}});
   document.querySelectorAll('.fb,.sb,.ubox-btn').forEach(function(b){b.classList.remove('sel');});
+  document.getElementById('lpapel').value='';document.getElementById('lbolsa').value='';
   document.getElementById('total-box').style.display='none';
   initFecha();renderOps();pg=0;
   document.getElementById('bbar').style.display='flex';
@@ -442,7 +501,7 @@ function dic(fid,btn){
   rec=new SR();rec.lang='es-ES';rec.interimResults=false;
   if(abtn)abtn.classList.remove('on');
   abtn=btn;btn.classList.add('on');
-  rec.onresult=function(e){var t=e.results[0][0].transcript.trim();var nsp=['ref','lot','lpared','lpapel','lbolsa'];var isNsp=false;for(var i=0;i<nsp.length;i++){if(nsp[i]===fid){isNsp=true;break;}}if(isNsp){t=t.replace(/\s+/g,'').toUpperCase();}var inp=document.getElementById(fid);inp.value=t;chk(inp);};
+  rec.onresult=function(e){var t=e.results[0][0].transcript.trim();var nsp=['ref','lot','lpared'];var isNsp=false;for(var i=0;i<nsp.length;i++){if(nsp[i]===fid){isNsp=true;break;}}if(isNsp){t=t.replace(/\s+/g,'').toUpperCase();}var inp=document.getElementById(fid);inp.value=t;chk(inp);};
   rec.onerror=function(){toast('No se entendio','err');};
   rec.onend=function(){if(abtn)abtn.classList.remove('on');abtn=null;rec=null;};
   rec.start();
@@ -455,34 +514,13 @@ function loadRegistros(){
   document.getElementById('reg-count').textContent='';
   var xhr=new XMLHttpRequest();
   xhr.open('GET',SURL+'?action=getAll',true);
-  xhr.onload=function(){
-    try{
-      var data=JSON.parse(xhr.responseText);
-      if(data.ok&&data.registros){
-        allRegistros=data.registros;
-        renderRegistros();
-      } else {
-        list.innerHTML='<div class="reg-empty">No se pudieron cargar los registros.<br><small>'+(data.error||'')+'</small></div>';
-      }
-    }catch(e){
-      list.innerHTML='<div class="reg-empty">Error al leer los datos.</div>';
-    }
-  };
+  xhr.onload=function(){try{var data=JSON.parse(xhr.responseText);if(data.ok&&data.registros){allRegistros=data.registros;renderRegistros();}else{list.innerHTML='<div class="reg-empty">No se pudieron cargar los registros.</div>';}}catch(e){list.innerHTML='<div class="reg-empty">Error al leer los datos.</div>';}};
   xhr.onerror=function(){list.innerHTML='<div class="reg-empty">Sin conexión.</div>';};
   xhr.send();
 }
-
-function setFiltro(f,el){
-  filtroActivo=f;
-  document.querySelectorAll('.reg-filter').forEach(function(b){b.classList.remove('active');});
-  el.classList.add('active');
-  renderRegistros();
-}
-
+function setFiltro(f,el){filtroActivo=f;document.querySelectorAll('.reg-filter').forEach(function(b){b.classList.remove('active');});el.classList.add('active');renderRegistros();}
 function renderRegistros(){
-  var filtered=allRegistros.filter(function(r){
-    return filtroActivo==='todos'||r.formato===filtroActivo;
-  });
+  var filtered=allRegistros.filter(function(r){return filtroActivo==='todos'||r.formato===filtroActivo;});
   document.getElementById('reg-count').textContent=filtered.length+' registro'+(filtered.length!==1?'s':'');
   var list=document.getElementById('reg-list');
   if(filtered.length===0){list.innerHTML='<div class="reg-empty">No hay registros'+(filtroActivo!=='todos'?' para '+filtroActivo:'')+'.</div>';return;}
@@ -491,9 +529,7 @@ function renderRegistros(){
     var r=filtered[i];
     var turLabel=r.turno==='Manana'?'Mañana':r.turno;
     var turClass=r.turno||'Noche';
-    h+='<div class="reg-card">';
-    h+='<div class="reg-card-h"><span class="rc-fmt">'+r.formato+'</span><span class="rc-tag '+turClass+'">'+turLabel+'</span><span class="rc-date">'+r.fecha+'</span></div>';
-    h+='<div class="reg-body">';
+    h+='<div class="reg-card"><div class="reg-card-h"><span class="rc-fmt">'+r.formato+'</span><span class="rc-tag '+turClass+'">'+turLabel+'</span><span class="rc-date">'+r.fecha+'</span></div><div class="reg-body">';
     if(r.referencia)h+='<div class="reg-row"><span class="rk">Referencia</span><span class="rv">'+r.referencia+'</span></div>';
     if(r.lote)h+='<div class="reg-row"><span class="rk">Lote fab.</span><span class="rv">'+r.lote+'</span></div>';
     if(r.lote_pared)h+='<div class="reg-row"><span class="rk">Lote pared</span><span class="rv">P·'+r.lote_pared+'</span></div>';
@@ -507,6 +543,119 @@ function renderRegistros(){
     h+='</div>';
   }
   list.innerHTML=h;
+}
+
+// ---- ADMIN / LOTES ----
+function unlockAdmin(){
+  var pin=document.getElementById('pinput').value.trim();
+  if(pin===ADMIN_PIN){
+    document.getElementById('lotes-lock').style.display='none';
+    document.getElementById('lotes-panel').style.display='block';
+    loadLotesFromSheets();
+  } else {
+    toast('PIN incorrecto','err');
+    document.getElementById('pinput').value='';
+  }
+}
+function lockAdmin(){
+  document.getElementById('lotes-lock').style.display='block';
+  document.getElementById('lotes-panel').style.display='none';
+  document.getElementById('pinput').value='';
+}
+
+function selLoteFmt(fmt,el){
+  loteFmtActivo=fmt;
+  document.querySelectorAll('.lfb').forEach(function(b){b.classList.remove('sel');});
+  el.classList.add('sel');
+  renderLotesPanel();
+}
+
+function loadLotesFromSheets(){
+  var xhr=new XMLHttpRequest();
+  xhr.open('GET',SURL+'?action=getLotes',true);
+  xhr.onload=function(){
+    try{
+      var data=JSON.parse(xhr.responseText);
+      if(data.ok&&data.lotes){
+        lotesDB=data.lotes;
+        renderLotesPanel();
+      }
+    }catch(e){}
+  };
+  xhr.send();
+}
+
+function renderLotesPanel(){
+  var fmt=loteFmtActivo;
+  if(!lotesDB[fmt])lotesDB[fmt]={PB:[],B:[]};
+  var d=lotesDB[fmt];
+  var h='';
+  h+=renderMaterial(fmt,'PB','Papel base','🟩');
+  h+=renderMaterial(fmt,'B','Bolsa PEHD','🟧');
+  document.getElementById('lotes-contenido').innerHTML=h;
+}
+
+function renderMaterial(fmt,mat,label,ic){
+  var items=lotesDB[fmt]&&lotesDB[fmt][mat]?lotesDB[fmt][mat]:[];
+  var h='<div class="lote-material">';
+  h+='<div class="lote-mat-h"><span class="lmtit">'+ic+' Lote '+label+' <span style="color:#7880a0;font-weight:400">('+mat+'·)</span></span>';
+  var activo=getLoteActivo(fmt,mat);
+  if(activo)h+='<span class="lmbadge">Activo: '+mat+'·'+activo+'</span>';
+  h+='</div>';
+  for(var i=0;i<items.length;i++){
+    var item=items[i];
+    h+='<div class="lote-item">';
+    h+='<span class="lival">'+mat+'·'+item.val+'</span>';
+    if(item.activo){
+      h+='<span class="liact">✓ EN USO</span>';
+    } else {
+      h+='<button class="lisel" onclick="setLoteActivo(\''+fmt+'\',\''+mat+'\','+i+')">Usar este</button>';
+    }
+    h+='</div>';
+  }
+  h+='<div class="lote-add">';
+  h+='<input type="text" id="newinp-'+fmt+'-'+mat+'" placeholder="Nuevo lote '+mat+'·..." style="text-transform:uppercase">';
+  h+='<button class="lote-add-btn" onclick="addLote(\''+fmt+'\',\''+mat+'\')">+ Añadir</button>';
+  h+='</div></div>';
+  return h;
+}
+
+function setLoteActivo(fmt,mat,idx){
+  if(!lotesDB[fmt]||!lotesDB[fmt][mat])return;
+  for(var i=0;i<lotesDB[fmt][mat].length;i++){
+    lotesDB[fmt][mat][i].activo=(i===idx);
+  }
+  saveLotesToSheets();
+  renderLotesPanel();
+  toast('Lote '+mat+'· activado','ok');
+  // actualizar campo automático si el formato activo coincide
+  if(st.fmt===fmt)cargarLotesAuto(fmt);
+}
+
+function addLote(fmt,mat){
+  var inp=document.getElementById('newinp-'+fmt+'-'+mat);
+  var val=inp.value.trim().toUpperCase();
+  if(!val){toast('Escribe un número de lote','err');return;}
+  if(!lotesDB[fmt])lotesDB[fmt]={PB:[],B:[]};
+  if(!lotesDB[fmt][mat])lotesDB[fmt][mat]=[];
+  // comprobar duplicado
+  for(var i=0;i<lotesDB[fmt][mat].length;i++){
+    if(lotesDB[fmt][mat][i].val===val){toast('Lote ya existe','err');return;}
+  }
+  // si es el primero, marcarlo como activo
+  var esActivo=lotesDB[fmt][mat].length===0;
+  lotesDB[fmt][mat].push({val:val,activo:esActivo});
+  inp.value='';
+  saveLotesToSheets();
+  renderLotesPanel();
+  toast('Lote añadido'+(esActivo?' y activado':''),'ok');
+  if(st.fmt===fmt)cargarLotesAuto(fmt);
+}
+
+function saveLotesToSheets(){
+  var xhr=new XMLHttpRequest();
+  xhr.open('POST',SURL,true);
+  xhr.send(JSON.stringify({action:'saveLotes',lotes:lotesDB}));
 }
 </script>
 </body>
